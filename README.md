@@ -13,3 +13,15 @@ User can pay through online after the appointment  is confirmed..He/She has opti
 
 The application can be used within six miles of radius around the globe for users.It displays saloons to the user based on the radius.It can be used within a city with utmost fifty users. 
 
+
+### Backend Setup
+- download eclipse IDE for java developers
+- downalod python 2.7 32 bit and install the pip package installer
+- make sure that environment variables are set
+- install mysql server database and set environmental variables for it
+- from the project directory install django and south and requests and mysqlconecter
+- follow this article to enble the python in eclipse [enabling the python on eclipse](https://jimstechblog.wordpress.com/2014/10/28/setting-up-eclipse-for-django-on-windows/)
+- make sure that a database with name traceandgigit is created
+- update the database credentials in settings.py 
+- run the project as django project so that you can see server runing in console 
+

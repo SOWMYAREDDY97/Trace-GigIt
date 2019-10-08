@@ -1,4 +1,4 @@
-# App Name:-  Trace-GigIt
+# App Name:-  TraceAndGigIt
 
 ## App Logo :- 
 ![Hosted image](https://github.com/SOWMYAREDDY97/TraceAndGigIt/blob/master/APP_logo.PNG "app logo")

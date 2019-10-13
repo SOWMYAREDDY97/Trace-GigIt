@@ -57,3 +57,16 @@ class customer(models.Model):
         return " ".join([unicode(f) for f in fields if f])
     
     
+    
+class owner(models.Model):
+    # profile information
+    first = models.CharField(max_length=64, blank=True, db_index=True)
+    last = models.CharField(max_length=64, blank=True, db_index=True)
+    # password hash is sha256 hash digest of user password plus salt
+    password_hash = models.CharField(max_length=128, null=True)
+    mobile = models.CharField(max_length=32, null=True)
+    gender = models.CharField(max_length=2, choices=GENDER_CHOICES, default='N')
+    # created and modified timestamps
+    created_on = models.DateTimeField(auto_now_add=True)
+    modified_on = models.DateTimeField(auto_now=True)
+    # associated device if this is guest account

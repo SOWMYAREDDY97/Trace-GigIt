@@ -1,19 +1,31 @@
 # -*- coding: utf-8 -*-
 import datetime
 from south.db import db
-from south.v2 import DataMigration
+from south.v2 import SchemaMigration
 from django.db import models
 
-class Migration(DataMigration):
+
+class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        "Write your forwards methods here."
-        # Note: Don't use "from appname.models import ModelName". 
-        # Use orm.ModelName to refer to models in this application,
-        # and orm['appname.ModelName'] for models in other applications.
+        # Adding model 'customer'
+        db.create_table(u'login_customer', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('first', self.gf('django.db.models.fields.CharField')(db_index=True, max_length=64, blank=True)),
+            ('last', self.gf('django.db.models.fields.CharField')(db_index=True, max_length=64, blank=True)),
+            ('password_hash', self.gf('django.db.models.fields.CharField')(max_length=128, null=True)),
+            ('mobile', self.gf('django.db.models.fields.CharField')(max_length=32, null=True)),
+            ('gender', self.gf('django.db.models.fields.CharField')(default='N', max_length=2)),
+            ('created_on', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('modified_on', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
+        ))
+        db.send_create_signal(u'login', ['customer'])
+
 
     def backwards(self, orm):
-        "Write your backwards methods here."
+        # Deleting model 'customer'
+        db.delete_table(u'login_customer')
+
 
     models = {
         u'login.customer': {
@@ -30,4 +42,3 @@ class Migration(DataMigration):
     }
 
     complete_apps = ['login']
-    symmetrical = True

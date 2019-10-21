@@ -1,0 +1,19 @@
+{
+  "DATABASES": {
+    "default": {
+      "ENGINE": "django.db.backends.mysql",
+      "NAME": "traceandgigit",
+      "USER": "root",
+      "PASSWORD": "lolrajahira",
+      "HOST": "127.0.0.1",
+      "PORT": "3306"
+    }
+  },
+  "trace_and_gigit_user":{
+    "reg_device_limit":5,
+    "client_key_duration":180
+  },
+  "APP_NAME":"TraceAndGigIt",
+  "SECONDERY_CACHE":10800,
+  "server":"http://127.0.0.1:8000/"
+}

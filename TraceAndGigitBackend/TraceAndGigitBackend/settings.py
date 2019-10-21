@@ -10,7 +10,22 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+import json
+import sys
+from django.utils.translation import ugettext_lazy as _
+
+SETTINGS_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.dirname(SETTINGS_DIR)
+MAX_INCORRECT_PASSWORD_ATTEMPT = 5
+
+# import settings from JSON config
+PROJECT_SETTINGS_FILE = os.path.join(PROJECT_DIR, "conf", "trace_and_gigit.json")
+CUSTOM_SETTINGS_FILE = os.path.join("/etc/TraceAndGigitBackend/TraceAndGigitBackend", "trace_and_gigit.json")
+if os.path.exists(CUSTOM_SETTINGS_FILE):
+    JSON_SETTINGS_FILE = CUSTOM_SETTINGS_FILE
+else:
+    JSON_SETTINGS_FILE = PROJECT_SETTINGS_FILE
+JSON_SETTINGS = json.loads(open(JSON_SETTINGS_FILE).read())
 
 
 # Quick-start development settings - unsuitable for production
@@ -38,7 +53,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_cron',
     'south',
-    'login',
+    'apps.common',
+    'apps.config',
+    'apps.trace_and_gigit_user',
     'django.contrib.admin',
     'django.contrib.admindocs',
     

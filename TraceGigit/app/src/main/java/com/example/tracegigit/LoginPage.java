@@ -2,6 +2,7 @@ package com.example.tracegigit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -14,6 +15,6 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
     }
 
-
+Intent ini = new Intent(this,)
 
 }

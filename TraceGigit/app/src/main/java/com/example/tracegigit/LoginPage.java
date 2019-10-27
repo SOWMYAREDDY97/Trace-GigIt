@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -14,7 +15,13 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
     }
+public void onloginclick(View v) {
+    Intent ini = new Intent(this, SaloonsDisplayActivity.class);
+    startActivity(ini);
+}
 
-Intent ini = new Intent(this,)
-
+    public void onnewuserclick(View v) {
+        Intent ini = new Intent(this, SignUpActivity.class);
+        startActivity(ini);
+    }
 }

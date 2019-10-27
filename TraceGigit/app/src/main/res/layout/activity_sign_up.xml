@@ -126,6 +126,7 @@
         android:layout_width="169dp"
         android:layout_height="83dp"
         android:fontFamily="sans-serif-black"
+        android:onClick="onsignupclick"
         android:text="Create Account"
         android:textColor="#090808"
         android:textSize="20sp"

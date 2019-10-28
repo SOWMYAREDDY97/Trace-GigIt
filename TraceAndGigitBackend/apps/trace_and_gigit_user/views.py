@@ -22,8 +22,8 @@ import requests
 from apps.common.decorators import json_response, require_valid_session, require_logged_in_user
 from apps.common.responses import InvalidParameterResult, Result, get_json_data, \
     NotFoundResult, ServerErrorResult
-from apps.common.utils import is_location_allowed_by_ip, make_request, normalize_india_mobile_no, \
-    is_location_allowed_by_ip_corosel, make_request_requests
+from apps.common.utils import make_request, normalize_india_mobile_no, \
+     make_request_requests
     
 
 from apps.trace_and_gigit_user import constants
@@ -31,7 +31,7 @@ from apps.trace_and_gigit_user import model_utils
 from apps.trace_and_gigit_user import trace_and_gigit_utils
 from apps.trace_and_gigit_user import responses
 from apps.trace_and_gigit_user.models import Device, Session, User, ClientSecret, UserMobile,UserEmail
-from apps.trace_and_gigit_user.models import UserEmail
+
 from apps.trace_and_gigit_user.trace_and_gigit_utils import get_tzaware_now
 
 
@@ -53,9 +53,9 @@ import time
 
 
 
-REG_DEVICE_LIMIT = JSON_SETTINGS["trace_and_gigit"]["reg_device_limit"]
+REG_DEVICE_LIMIT = JSON_SETTINGS["trace_and_gigit_user"]["reg_device_limit"]
 
-OPERATOR_SETTINGS = JSON_SETTINGS["operator_mode"]
+
 LOGGER = logging.getLogger("TraceAndGigitBackend.apps.trace_and_gigit_user.views")
 
 
@@ -83,6 +83,7 @@ def register_device(request):
         return result
 
     form = DeviceRegistrationForm(request.POST)
+    
     if form.is_valid():
         data = form.cleaned_data
         serviceid_tracker = ClientSecret.objects.get(os = data['os'],secret = data['clientSecret'])
@@ -92,12 +93,19 @@ def register_device(request):
             data['make'] = data['make'] + '_' + data['clientSecret']
             data['model'] = data['model'] + '_' + data['clientSecret']
             data['profile'] = data['profile'] + '_' + data['clientSecret']
-        device_id = trace_and_gigit_utils.generate_device_id(data['os'], data['make'], data['model'],
-            data['serialNo'], data['profile'])
+            
+        
+        #device_id = trace_and_gigit_utils.generate_device_id(data['os'], data['make'], data['model'],
+        #    data['serialNo'], data['profile'])
+        
+        device_id = "qwert"
+        
         creation_params = {'os_version': data['osVersion'], 'resolution': data['resolution'],
             'device_id': device_id, 'service_id': data['serviceId']}
+        
         device, created = Device.objects.get_or_create(os=data['os'], make=data['make'], model=data['model'],
             serial_number=data['serialNo'], profile=data['profile'], defaults=creation_params)
+        
         if created:
             LOGGER.info("Added device. Parameters: %s, device id: %s", data, device_id)
         else:
@@ -122,29 +130,24 @@ def register_device(request):
             pass
         session_params = {
             "device": device,
-            "browser": None,
             "client_key": client_key,
             "expires_at": expires_at,
             "user": None,
             "ip_address": request.META.get("REMOTE_ADDR", None),
         }
+        
         if data.get('mobile'):
             mobile = data.get('mobile')
             if len(mobile) > 10: mobile = mobile[2:]
             msisdn = mobile
             LOGGER.info("Msisdn is :%s",msisdn)
             LOGGER.debug("New user with out subscriptions")
-        if data['clientSecret'] in OPERATOR_SETTINGS.get('allowed_secrets') and OPERATOR_SETTINGS.get('msisdn_login') == 'enabled':
-            mobile = request.META.get(OPERATOR_SETTINGS.get('msisdn_header_name'))
-            if extra_fields is None :extra_fields = {}
-            appLoginConfig ={}
-            appLoginConfig['type'] = "auto"
-            appLoginConfig['medium'] = "msisdn"
-            appLoginConfig['msisdn'] = mobile
-            extra_fields['appLoginConfig'] = appLoginConfig
-            LOGGER.debug('In vodafone registration : %s',mobile)
         LOGGER.info("Device registration success for : %s",session_params)
-        session = Session.objects.create(**session_params)
+        try:
+            session = Session.objects.create(**session_params)
+        except Exception,e:
+            print e
+            
         result = responses.DeviceRegistrationResult(session, created, extra_fields=extra_fields)
     else:
         # form not valid

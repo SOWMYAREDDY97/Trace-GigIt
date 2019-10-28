@@ -9,5 +9,5 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', include(admin.site.urls)),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^user/v1/', include('login.urls')),
+    url(r'^user/v1/', include('apps.trace_and_gigit_user.urls')),
 )

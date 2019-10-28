@@ -9,7 +9,7 @@ import constants
 from TraceAndGigitBackend.settings import JSON_SETTINGS
 from django.utils import timezone
 
-CONTENT_STORE_SETTINGS = JSON_SETTINGS["content_store"]
+
 
 LOGGER = logging.getLogger("traceandgigit_user.traceandgigit_utils")
 
@@ -25,6 +25,7 @@ def get_client_key_expiry_time():
     Get time at which client key expires.
     """
     expires_at = get_tzaware_now() + constants.CLIENT_KEY_DURATION
+    expires_at = expires_at.replace(tzinfo=None)
     return expires_at
 
 def generate_client_key(device_id):
@@ -42,9 +43,10 @@ def generate_device_id(os, make, model, serial_no, profile):
     """
     fields = [os, make, model, serial_no, profile]
     name = ':'.join([str(f) for f in fields])
+    
     key_input = name + datetime.datetime.now().isoformat() + str(random.random())
     LOGGER.info("Generating device id for %s", name)
-    return str(uuid.uuid5("traceandgigit", key_input))
+    return (key_input.encode('utf-8')).hex()
     
 def create_unique(fields):
     return hashlib.sha224(fields).hexdigest()

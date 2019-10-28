@@ -80,28 +80,7 @@ class User(models.Model):
         fields = [self.id, self.first, self.last]
         return " ".join([unicode(f) for f in fields if f])
 
-class UserEmail(models.Model):
-    email = models.EmailField(unique=True, db_index=True)
-    user = models.ForeignKey(User)
-    is_verified = models.BooleanField(default=False)
-    is_primary = models.BooleanField(default=False)
 
-    # created and modified timestamps
-    created_on = models.DateTimeField(auto_now_add=True)
-    modified_on = models.DateTimeField(auto_now=True)
-    
-    @classmethod
-    def get_email(cls, user):
-        #Getting circle based on mcc and mnc values
-        email = ""
-        try:
-            useremail = cls.objects.get(user = user)
-            if useremail.email:
-                email = useremail.email
-            else: email = ""
-        except:
-            LOGGER.info("No email for this user")
-        return email
 
 
 class UserMobile(models.Model):
@@ -146,11 +125,7 @@ class Device(models.Model):
     device_id = models.CharField(unique=True, db_index=True, max_length=128)
     service_id = models.CharField(max_length=255, db_index=True, default='traceandgigit')
     user = models.ForeignKey(User, null=True, blank=True, default=None)
-    ''' ============Modifying for cabletv start=================== '''
-    mso_subscriber_id = models.CharField(max_length=12, default='NA')
-    status = models.CharField(max_length=32, default='NA')
-    friendly_name = models.CharField(max_length=64, default='home')
-    ''' ============Modifying for cabletv end=================== '''
+    
     # created and modified timestamps
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
@@ -175,8 +150,7 @@ class Device(models.Model):
 class Session(models.Model):
     """Class representing an API Session."""
     DEVICE_CACHE_PREFIX = "apps.trace_and_gigit_user.models.session.device.%s"
-    BROWSER_CACHE_PREFIX = "apps.trace_and_gigit_user.models.session.browser.%s"
-
+    
     device = models.ForeignKey(Device, db_index=True, null=True)
     client_key = models.CharField(max_length=128, null=True, unique=True, db_index=True)
     expires_at = models.DateTimeField(null=True, default=None)
@@ -204,18 +178,7 @@ class Session(models.Model):
         #cache.set(cache_key, session, cache_time)
         return session
 
-    @classmethod
-    def get_browser_session(cls, session_id):
-        cache_key = cls.BROWSER_CACHE_PREFIX % session_id
-        session = cache.get(cache_key)
-        if session:
-            LOGGER.debug("Got browser session from cache, key: %s", cache_key)
-            return session
-        session = Session.objects.get(id=session_id)
-        if session.browser is not None:
-            cache_time = 7*24*60*60
-            cache.set(cache_key, session, cache_time)
-            return session
+    
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
@@ -235,17 +198,27 @@ class Session(models.Model):
 
 
 
+class UserEmail(models.Model):
+    email = models.EmailField(unique=True, db_index=True)
+    user = models.ForeignKey(User)
+    is_verified = models.BooleanField(default=False)
+    is_primary = models.BooleanField(default=False)
 
-
-
-
-    utm_campaign = models.CharField(max_length = 64)
-    user = models.CharField(max_length = 64 , blank =True)
-    device_id = models.IntegerField(max_length = 11 , null = True)
-    avail = models.IntegerField(max_length = 3 , default = 0)
-    status = models.CharField(max_length = 32, default='SUCCESS')
-    adiquity_status = models.CharField(max_length = 4 , default = 'NO')
+    # created and modified timestamps
     created_on = models.DateTimeField(auto_now_add=True)
-
+    modified_on = models.DateTimeField(auto_now=True)
+    
+    @classmethod
+    def get_email(cls, user):
+        #Getting circle based on mcc and mnc values
+        email = ""
+        try:
+            useremail = cls.objects.get(user = user)
+            if useremail.email:
+                email = useremail.email
+            else: email = ""
+        except:
+            LOGGER.info("No email for this user")
+        return email
 
 

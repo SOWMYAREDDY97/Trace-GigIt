@@ -59,7 +59,7 @@ class Migration(SchemaMigration):
             ('resolution', self.gf('django.db.models.fields.CharField')(max_length=12)),
             ('serial_number', self.gf('django.db.models.fields.CharField')(max_length=255, db_index=True)),
             ('profile', self.gf('django.db.models.fields.CharField')(max_length=32)),
-            ('device_id', self.gf('django.db.models.fields.CharField')(unique=True, max_length=128, db_index=True)),
+            ('device_id', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255, db_index=True)),
             ('service_id', self.gf('django.db.models.fields.CharField')(default='traceandgigit', max_length=255, db_index=True)),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['trace_and_gigit_user.User'], null=True, blank=True)),
             ('created_on', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
@@ -81,6 +81,18 @@ class Migration(SchemaMigration):
             ('created_on', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal(u'trace_and_gigit_user', ['Session'])
+
+        # Adding model 'UserEmail'
+        db.create_table(u'trace_and_gigit_user_useremail', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('email', self.gf('django.db.models.fields.EmailField')(unique=True, max_length=75, db_index=True)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['trace_and_gigit_user.User'])),
+            ('is_verified', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('is_primary', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('created_on', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('modified_on', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
+        ))
+        db.send_create_signal(u'trace_and_gigit_user', ['UserEmail'])
 
 
     def backwards(self, orm):
@@ -105,6 +117,9 @@ class Migration(SchemaMigration):
         # Deleting model 'Session'
         db.delete_table(u'trace_and_gigit_user_session')
 
+        # Deleting model 'UserEmail'
+        db.delete_table(u'trace_and_gigit_user_useremail')
+
 
     models = {
         u'trace_and_gigit_user.clientsecret': {
@@ -117,7 +132,7 @@ class Migration(SchemaMigration):
         u'trace_and_gigit_user.device': {
             'Meta': {'unique_together': "[('os', 'make', 'model', 'serial_number', 'profile')]", 'object_name': 'Device'},
             'created_on': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'device_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '128', 'db_index': 'True'}),
+            'device_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255', 'db_index': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'make': ('django.db.models.fields.CharField', [], {'max_length': '64', 'db_index': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
@@ -153,6 +168,16 @@ class Migration(SchemaMigration):
             'mobile_no_verified': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'modified_on': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'password_hash': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True'})
+        },
+        u'trace_and_gigit_user.useremail': {
+            'Meta': {'object_name': 'UserEmail'},
+            'created_on': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '75', 'db_index': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'is_primary': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'is_verified': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'modified_on': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['trace_and_gigit_user.User']"})
         },
         u'trace_and_gigit_user.usermobile': {
             'Meta': {'object_name': 'UserMobile'},

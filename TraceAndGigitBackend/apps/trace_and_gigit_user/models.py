@@ -122,7 +122,7 @@ class Device(models.Model):
     serial_number = models.CharField(max_length=255, db_index=True)
     # profile, allows more than one device ids to be associated with a device
     profile = models.CharField(max_length=32)
-    device_id = models.CharField(unique=True, db_index=True, max_length=128)
+    device_id = models.CharField(unique=True, db_index=True, max_length=255)
     service_id = models.CharField(max_length=255, db_index=True, default='traceandgigit')
     user = models.ForeignKey(User, null=True, blank=True, default=None)
     

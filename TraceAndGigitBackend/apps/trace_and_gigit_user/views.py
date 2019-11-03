@@ -95,16 +95,23 @@ def register_device(request):
             data['profile'] = data['profile'] + '_' + data['clientSecret']
             
         
-        #device_id = trace_and_gigit_utils.generate_device_id(data['os'], data['make'], data['model'],
-        #    data['serialNo'], data['profile'])
         
-        device_id = "qwert"
+        device_id = trace_and_gigit_utils.generate_device_id(data['os'], data['make'], data['model'],
+            data['serialNo'], data['profile'])
+        
+        
+        
+        
+        
         
         creation_params = {'os_version': data['osVersion'], 'resolution': data['resolution'],
-            'device_id': device_id, 'service_id': data['serviceId']}
-        
+        'device_id': device_id, 'service_id': data['serviceId']}
+    
+    
+    
         device, created = Device.objects.get_or_create(os=data['os'], make=data['make'], model=data['model'],
-            serial_number=data['serialNo'], profile=data['profile'], defaults=creation_params)
+                    serial_number=data['serialNo'], profile=data['profile'], defaults=creation_params)
+        
         
         if created:
             LOGGER.info("Added device. Parameters: %s, device id: %s", data, device_id)
@@ -199,6 +206,8 @@ def sign_up(request, session):
             return result.http_response(int(request.POST.get("pretty", 0)))
 
     form = SignUpForm(request.POST)
+    
+    
     errors = dict()
     if not form.is_valid():
         LOGGER.warning("Missing or invalid parameter(s): %s", request.POST)
@@ -207,22 +216,24 @@ def sign_up(request, session):
             LOGGER.warning("%s: %s", field, error.as_text())
             errors[field] = error.as_text()
 
-        #errors = dict([(f, e.as_text()) for f, e in form.errors.items()])
+    errors = dict([(f, e.as_text()) for f, e in form.errors.items()])
+    
     if errors:
         result = InvalidParameterResult(errors=errors)
         return result.http_response(int(request.POST.get("pretty", 0)))
 
-    auto_password = request.POST.get('autoPassword', 'false') == 'true'
+    #auto_password = request.POST.get('autoPassword', 'false') == 'true'
     data = form.cleaned_data
-    email = data['email']
-
+    #email = data['email']
     
-    if UserEmail.objects.filter(email=email).exists():
-        LOGGER.info("User with email %s exists", email)
-        result = responses.Result(409, responses.STATUS_USER_EXISTS,
-            _("User with email %(email)s exists" % {'email':email}))
-        #return HttpResponse(result.to_json(), mimetype='application/json')
-        return result.http_response(data.get("pretty"))
+    
+    #if UserEmail.objects.filter(email=email).exists():
+    #    LOGGER.info("User with email %s exists", email)
+    #    result = responses.Result(409, responses.STATUS_USER_EXISTS,
+    #        _("User with email %(email)s exists" % {'email':email}))
+    #    #return HttpResponse(result.to_json(), mimetype='application/json')
+    #    return result.http_response(data.get("pretty"))
+    
     mobile = data.get('mobile')
     if mobile and UserMobile.objects.filter(mobile=mobile).exists():
         LOGGER.info("User with mobile %s exists", mobile)
@@ -230,47 +241,48 @@ def sign_up(request, session):
             _("User with mobile %(mobile)s exists" % {'mobile':mobile}))
         #return HttpResponse(result.to_json(), mimetype='application/json')
         return result.http_response(data.get("pretty"))
-    if session.device and session.device.user and not session.device.user.guest_device:
-        user_email = UserEmail.objects.filter(user=session.device.user)[0]
-        result = responses.Result(403, common_responses.STATUS_ERR_DEVICE_DIFF_USR, _("The device is registered to user with email:%(email)s" %{'email':user_email.email}))
-        #return HttpResponse(result.to_json(), mimetype='application/json')
-        return result.http_response(data.get("pretty"))
+    
+#     if session.device and session.device.user and not session.device.user.guest_device:
+#         user_email = UserEmail.objects.filter(user=session.device.user)[0]
+#         result = responses.Result(403, common_responses.STATUS_ERR_DEVICE_DIFF_USR, _("The device is registered to user with email:%(email)s" %{'email':user_email.email}))
+#         #return HttpResponse(result.to_json(), mimetype='application/json')
+#         return result.http_response(data.get("pretty"))
 
     user = User(first=data.get('first'), last=data.get('last'), mobile_no=mobile,
         dob=data.get('dob'), gender=data.get('gender'))
     user.password_hash = User.make_password(data['password'])
-    user.save() 
+    user.save()
+    
+    
+    
+     
     # log the user in
-    session.user = user
-    session.save()
-    if session.device:
-        device = session.device
-        device.user = user
-        device.save()
-    UserEmail.objects.create(email=email, user=user, is_primary=True)
+    try:
+        session.user = user
+        session.save()
+        if session.device:
+            device = session.device
+            device.user = user
+            device.save()
+    
+    except Exception,e:
+        print e
+    #UserEmail.objects.create(email=email, user=user, is_primary=True)
     if mobile:
         UserMobile.objects.create(mobile=mobile, is_verified=False, user=user)
 
-    LOGGER.info("Created user account with email: %s", email)
+    LOGGER.info("Created user account with mobile: %s", mobile)
+    
     client_secret = 'traceandgigit'
     if session.device:
         client_secret = session.device.service_id
     LOGGER.info("Client Secret is :%s",client_secret)
     
     
-    if auto_password:
-        LOGGER.info("Sending sign up email with generated password for user=%s", user)
-        context = Context({'email': email, 'password': data['password']})
-        html_mail = get_template('user/signup_html_mail.html').render(context)
-        text_mail = get_template('user/signup_text_mail.html').render(context)
-        #send_html_mail('User Registration', text_mail, html_mail, settings.EMAIL_FROM_ADDR, [email])
-        
-        #send_html_mail('Reset password', text_mail, html_mail, settings.EMAIL_HOST_USER, [email])
-        LOGGER.info("Sent mail for resetting password")
-        LOGGER.info("Sent sign up mail for user=%s", user)
+    
 
-    result = responses.Result(201, responses.STATUS_SUCCESS, _("Successfully created user account")%{"email":email},
-        extra_fields={"userid": user.id, "email":email})
+    result = responses.Result(201, responses.STATUS_SUCCESS, _("Successfully created user account")%{"mobile":mobile},
+        extra_fields={"userid": user.id, "mobile":mobile})
     return result.http_response(data.get("pretty"))
 
 @require_http_methods(['POST'])

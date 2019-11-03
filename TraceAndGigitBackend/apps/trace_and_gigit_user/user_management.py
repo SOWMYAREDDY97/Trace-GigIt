@@ -44,10 +44,8 @@ class DeviceRegistrationForm(BaseForm):
 
 
 class SignUpForm(BaseForm):
-    email = forms.EmailField(max_length=75)
-    mobile = forms.CharField(max_length=20, required=False)
+    mobile = forms.CharField(max_length=20)
     password = forms.CharField(min_length=6, max_length=32)
-    password2 = forms.CharField(max_length=32)
     first = forms.CharField(max_length=32, required=False)
     autoPassword = forms.BooleanField(required=False)
     last = forms.CharField(max_length=32, required=False)
@@ -65,6 +63,7 @@ class SignUpForm(BaseForm):
     def clean_dob(self):
         dob = self.cleaned_data.get('dob')
         # ensure that dob doesn't point to future date
+        
         if dob and dob > datetime.date.today():
             raise forms.ValidationError("Invalid date of birth, should not be a future value")
         return dob
@@ -72,9 +71,7 @@ class SignUpForm(BaseForm):
     def clean(self):
         cleaned_data = super(SignUpForm, self).clean()
         password = cleaned_data.get('password')
-        password2 = cleaned_data.get('password2')
-        if password != password2:
-            raise forms.ValidationError("Passwords didn't match")
+        
         # clean up char fields
         for field in ('first', 'last'):
             if cleaned_data.get(field):

@@ -4,6 +4,8 @@ import random
 import uuid
 import logging
 
+import binascii
+
 import constants
 
 from TraceAndGigitBackend.settings import JSON_SETTINGS
@@ -46,7 +48,7 @@ def generate_device_id(os, make, model, serial_no, profile):
     
     key_input = name + datetime.datetime.now().isoformat() + str(random.random())
     LOGGER.info("Generating device id for %s", name)
-    return (key_input.encode('utf-8')).hex()
+    return str(uuid.uuid5(constants.DEVICE_NAMESPACE_UUID, key_input))
     
 def create_unique(fields):
     return hashlib.sha224(fields).hexdigest()

@@ -1,8 +1,10 @@
-package com.example.tracegigit;
+package com.example.tracegigit.retrofit;
+
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import com.example.tracegigit.R;
 
 public class SaloonsDisplayActivity extends AppCompatActivity {
 

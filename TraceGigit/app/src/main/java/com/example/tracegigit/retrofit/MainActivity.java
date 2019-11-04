@@ -1,6 +1,4 @@
-package com.example.tracegigit;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.tracegigit.retrofit;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +6,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tracegigit.R;
 
 public class MainActivity extends AppCompatActivity {
     private TextView tv;

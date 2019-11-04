@@ -1,10 +1,12 @@
-package com.example.tracegigit;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.tracegigit.retrofit;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tracegigit.R;
 
 public class SignUpActivity extends AppCompatActivity {
 

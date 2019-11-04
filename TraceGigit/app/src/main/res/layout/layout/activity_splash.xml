@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:contentDescription="app logo"
+        android:src="@drawable/app_logo" />
+
+    <LinearLayout
+        android:id="@+id/dynamicHostLayout"
+        android:orientation="vertical"
+        android:layout_below="@+id/appLogo"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/scheme"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:hint="SCHEME: EX: http/https"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/host"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:hint="HOST NAME/ IP ADDRESS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/continueButton"
+            android:text="Continue"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

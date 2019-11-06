@@ -310,7 +310,7 @@ def sign_in(request, session):
                 # device is registered to another user account
                 user_email = UserEmail.objects.filter(user=session.device.user)[0]
                 result = responses.Result(403, common_responses.STATUS_ERR_DEVICE_DIFF_USR,
-                        _("The device is registered to user with email: %(email)s" %{'email':user_email.email}))
+                        _("The device is already registered to user with email: %(email)s" %{'email':user_email.email}))
                 return result.http_response(int(request.POST.get("pretty", 0)))
             if not session.device.user and Device.objects.filter(user=user).count() >= REG_DEVICE_LIMIT:
                 # User exceeds maximum number of devices registered to him

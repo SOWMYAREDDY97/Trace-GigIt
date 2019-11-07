@@ -1,4 +1,4 @@
-package com.example.tracegigit.retrofit;
+package com.example.tracegigit;
 
 
 
@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.example.tracegigit.R;
 import com.traceandgigit.retrofit.RetrofitClientInstance;
 
 

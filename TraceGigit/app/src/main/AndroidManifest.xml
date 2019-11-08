@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tracegigit">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.traceandgigit">
+
+    <!-- Permission must be declared in order to use Internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <!-- This is called the Android Manifest This is where all the Activities,
+     Receivers, Services, and meta-data are declared and is used across the life time of the app -->
 
     <application
         android:allowBackup="true"
@@ -8,12 +16,28 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".SignInActivity"></activity>
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <!-- This will tell Android OS that the Activity is the Main one when App opens -->
+                <action android:name="android.intent.action.MAIN" />
+
+                <!-- This will tell Android OS that this Activity is the one
+                     that should be opened when user clicks on App Icon     -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".SignInActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".SignUpActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -46,11 +46,11 @@ class DeviceRegistrationForm(BaseForm):
 class SignUpForm(BaseForm):
     mobile = forms.CharField(max_length=20)
     password = forms.CharField(min_length=6, max_length=32)
-    first = forms.CharField(max_length=32, required=False)
+    first = forms.CharField(max_length=32)
     autoPassword = forms.BooleanField(required=False)
-    last = forms.CharField(max_length=32, required=False)
-    dob = forms.DateField(required=False)
-    gender = forms.CharField(max_length=1, required=False)
+    last = forms.CharField(max_length=32)
+    dob = forms.DateField()
+    gender = forms.CharField(max_length=1)
 
     def clean_gender(self):
         gender = self.cleaned_data.get('gender')

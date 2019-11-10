@@ -1,8 +1,4 @@
-'''
-Created on Nov 10, 2019
 
-@author: S534596
-'''
 
 
 

@@ -1,15 +1,122 @@
 package com.traceandgigit;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.Settings;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+
+import java.util.List;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private ImageView mButton1,gpsButton,animFrame;
+    private LocationManager locationManager;
+    private Location location;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mButton1 = findViewById(R.id.image1);
+        mButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TakePictureAndUpload.class);
+                startActivity(intent);
+            }
+        });
+
+        gpsButton = findViewById(R.id.targetLocation);
+        gpsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getGPSLocation();
+            }
+        });
+        animFrame = findViewById(R.id.animFrame);
+
+    }
+
+    private void getGPSLocation() {
+        animFrame.setVisibility(View.VISIBLE);
+        Glide.with(this).load(R.drawable.location).into(animFrame);
+        FetchAddressService addressService = new FetchAddressService(this.getLocalClassName(), this);
+        Location gpsLocation = addressService.getLocation(LocationManager.NETWORK_PROVIDER);
+        double latitude = 0.0;
+        double longitude = 0.0;
+        if(gpsLocation != null){
+            latitude = gpsLocation.getLatitude();
+            longitude = gpsLocation.getLongitude();
+            ConvertToAddress.getAddress(latitude,longitude,this,new GeocoderHandler());
+            Log.d("LOCATION","Lat is "+ latitude+" and long is "+longitude);
+        }else{
+            showSettingsAlert();
+        }
+    }
+
+    private class GeocoderHandler extends Handler {
+        @Override
+        public void handleMessage(Message message) {
+            String locationAddress;
+            switch (message.what) {
+                case 1:
+                    Bundle bundle = message.getData();
+                    locationAddress = bundle.getString("address");
+                    break;
+                default:
+                    locationAddress = null;
+            }
+            animFrame.setVisibility(View.GONE);
+            Log.d("Location",locationAddress);
+        }
+    }
+
+
+    public void showSettingsAlert() {
+        animFrame.setVisibility(View.GONE);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+                MainActivity.this);
+        alertDialog.setTitle("SETTINGS");
+        alertDialog.setMessage("Enable Location Provider! Go to settings menu?");
+        alertDialog.setPositiveButton("Settings",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(
+                                Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        MainActivity.this.startActivity(intent);
+                    }
+                });
+        alertDialog.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog.show();
     }
 }

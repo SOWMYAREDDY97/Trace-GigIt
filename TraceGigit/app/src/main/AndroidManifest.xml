@@ -4,8 +4,12 @@
     package="com.traceandgigit">
 
     <!-- Permission must be declared in order to use Internet -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
     <!-- This is called the Android Manifest This is where all the Activities,
      Receivers, Services, and meta-data are declared and is used across the life time of the app -->
@@ -38,6 +42,16 @@
 
         <activity android:name=".SignUpActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".TakePictureAndUpload"
+            android:screenOrientation="portrait"/>
+
+        <service
+            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+            android:enabled="true" />
+
+        <service android:name=".FetchAddressService"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

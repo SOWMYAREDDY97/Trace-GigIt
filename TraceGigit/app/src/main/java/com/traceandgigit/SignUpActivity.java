@@ -34,6 +34,8 @@ public class SignUpActivity extends Activity {
                 finish();
             }
         });
+
+
         makeSignUpCall();
     }
 

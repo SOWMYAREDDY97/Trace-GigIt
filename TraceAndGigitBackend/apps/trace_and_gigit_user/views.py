@@ -298,9 +298,18 @@ def sign_in(request, session):
             result = responses.Result(200,"SUCCESS", _("OK"))
             return result.http_response(int(request.POST.get("pretty", 0)))
     try:
-        userid = request.POST['userid']
+        userid = request.POST['email']
         password = request.POST['password']
         user = model_utils.get_user(userid)
+        
+        
+        password_hash = User.make_password(password)
+        
+        paswrd_check = model_utils.get_user(password_hash)
+        if not paswrd_check:
+            raise exceptions.InvalidParameterError("password")
+        
+        
 
         if not user:
             raise exceptions.InvalidParameterError("userid")

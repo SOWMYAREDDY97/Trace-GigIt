@@ -14,3 +14,11 @@ def get_user(username):
     if user.count() >= 1:
         return user[0]
     return None
+
+
+def verify_passowrd(pasword):
+    pasword_hash = User.objects.filter(password_hash= pasword);
+    
+    if pasword_hash.count() == 1:
+        return pasword_hash[0].user
+    return None

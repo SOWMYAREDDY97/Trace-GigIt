@@ -118,7 +118,7 @@ public class SplashActivity extends Activity {
         };
         handler.postDelayed(r, 2500);
     }
-
+//opening login page after splash activity.
     private void launchSignInActivity(){
         Intent intent = new Intent(SplashActivity.this, SignInActivity.class);
         startActivity(intent);
@@ -126,7 +126,7 @@ public class SplashActivity extends Activity {
     }
 
 
-    
+
     private void checkPermissions(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){

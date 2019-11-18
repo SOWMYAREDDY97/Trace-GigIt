@@ -22,8 +22,11 @@ public class DeviceRegistration extends APIRequest {
     private Activity mActivity;
     private Call<DeviceRegData> registerDeviceAPICall;
 
+
     public DeviceRegistration(Activity mActivity,APICallback mListener) {
+
         super(mListener);
+        this.mActivity = mActivity;
     }
 
     @Override

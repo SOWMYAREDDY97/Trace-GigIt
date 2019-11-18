@@ -120,7 +120,7 @@ public class SplashActivity extends Activity {
     }
 
     private void launchSignInActivity(){
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        Intent intent = new Intent(SplashActivity.this, SignInActivity.class);
         startActivity(intent);
         finish();
     }

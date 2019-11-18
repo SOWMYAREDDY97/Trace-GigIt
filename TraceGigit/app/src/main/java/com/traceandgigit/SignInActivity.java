@@ -16,6 +16,8 @@ public class SignInActivity extends Activity {
         setContentView(R.layout.activity_signin);
         Button newUserButton = findViewById(R.id.newUserButton);
 
+
+
         newUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

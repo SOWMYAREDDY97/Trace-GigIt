@@ -126,6 +126,7 @@ public class SplashActivity extends Activity {
     }
 
 
+    
     private void checkPermissions(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){

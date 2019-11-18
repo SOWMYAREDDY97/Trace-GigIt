@@ -36,8 +36,8 @@ class User(models.Model):
     last = models.CharField(max_length=64, blank=True, db_index=True)
     # password hash is sha256 hash digest of user password plus salt
     password_hash = models.CharField(max_length=128, null=True)
-    mobile_no = models.CharField(max_length=32, null=True)
-    mobile_no_verified = models.BooleanField(default=False)
+    email = models.EmailField(unique=True, db_index=True)
+    email_verified = models.BooleanField(default=False)
     dob = models.DateField(null=True)
     gender = models.CharField(max_length=2, choices=GENDER_CHOICES, default='N')
     # created and modified timestamps

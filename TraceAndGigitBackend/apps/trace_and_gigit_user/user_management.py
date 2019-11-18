@@ -44,7 +44,7 @@ class DeviceRegistrationForm(BaseForm):
 
 
 class SignUpForm(BaseForm):
-    mobile = forms.CharField(max_length=20)
+    email = forms.CharField(max_length=20)
     password = forms.CharField(min_length=6, max_length=32)
     first = forms.CharField(max_length=32)
     autoPassword = forms.BooleanField(required=False)

@@ -21,8 +21,10 @@ public class SignInActivity extends Activity {
         newUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
-                startActivity(intent);
+                Intent ini = new Intent(SignInActivity.this, SignUpActivity.class);
+
+
+                startActivity(ini);
                 finish();
             }
         });

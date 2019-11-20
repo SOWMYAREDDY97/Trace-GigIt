@@ -1,7 +1,9 @@
 package com.traceandgigit.retrofit;
 
+import com.traceandgigit.AppConstants;
 import com.traceandgigit.model.DeviceRegData;
 import com.traceandgigit.model.UserSignUp;
+import com.traceandgigit.requests.SharedUtils;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -29,18 +31,19 @@ public class RetrofitClientInstance {
     //Its a Singleton Method
 
     public static RetrofitClientInstance getInstance() {
-        if (_self == null) {
+        if (_self == null || AppConstants.DID_API_CHANGED) {
             _self = new RetrofitClientInstance();
         }
         return _self;
     }
 
     private void init(){
-        if (retrofit == null) {
+        if (retrofit == null || AppConstants.DID_API_CHANGED) {
             retrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(BASE_SCHEME + BASE_HOST)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
+            AppConstants.DID_API_CHANGED = false;
         }
         mRetrofitInterface = retrofit.create(retrofitInterface.class);
     }

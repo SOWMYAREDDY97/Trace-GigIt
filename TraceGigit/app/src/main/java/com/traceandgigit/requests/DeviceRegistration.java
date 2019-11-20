@@ -22,9 +22,7 @@ public class DeviceRegistration extends APIRequest {
     private Activity mActivity;
     private Call<DeviceRegData> registerDeviceAPICall;
 
-
     public DeviceRegistration(Activity mActivity,APICallback mListener) {
-
         super(mListener);
         this.mActivity = mActivity;
     }
@@ -46,7 +44,7 @@ public class DeviceRegistration extends APIRequest {
                         Build.MODEL,
                         devRes,
                         "user",
-                        "Android");
+                        "traceandgigit");
 
         registerDeviceAPICall.enqueue(new Callback<DeviceRegData>() {
             @Override
@@ -64,7 +62,7 @@ public class DeviceRegistration extends APIRequest {
 
             @Override
             public void onFailure(Call<DeviceRegData> call, Throwable t) {
-
+                DeviceRegistration.this.onFailure(t, 500);
             }
         });
     }

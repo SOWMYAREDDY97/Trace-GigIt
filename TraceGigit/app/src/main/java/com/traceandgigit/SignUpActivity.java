@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.traceandgigit.model.DeviceRegData;
 import com.traceandgigit.requests.DeviceRegistration;
 import com.traceandgigit.requests.SharedUtils;
+
 import com.traceandgigit.requests.UserSignUpCall;
 import com.traceandgigit.retrofit.APICallback;
 import com.traceandgigit.retrofit.APIResponses;

@@ -23,9 +23,10 @@ public class SignUpActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.activity_signup);
 
-        Button newUserButton = findViewById(R.id.newUserButton);
+        Button newUserButton = (Button) findViewById(R.id.newUserButton);
 
         newUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +36,8 @@ public class SignUpActivity extends Activity {
                 finish();
             }
         });
+
+
         makeSignUpCall();
     }
 

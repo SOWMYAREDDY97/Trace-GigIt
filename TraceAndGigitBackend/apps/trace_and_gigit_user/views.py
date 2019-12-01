@@ -4,6 +4,9 @@ import logging
 import smtplib
 import urllib
 import datetime
+import random
+import string
+
 from apps.common import responses as common_responses
 
 
@@ -50,6 +53,7 @@ from apps.common.models import CircleMapping
 
 
 import time
+from apps.common.send_grid_sender import send_email
 
 
 
@@ -207,6 +211,7 @@ def sign_up(request, session):
 
     form = SignUpForm(request.POST)
     
+    print (request.POST)
     
     errors = dict()
     if not form.is_valid():
@@ -218,29 +223,31 @@ def sign_up(request, session):
 
     errors = dict([(f, e.as_text()) for f, e in form.errors.items()])
     
+    
     if errors:
         result = InvalidParameterResult(errors=errors)
+        print (result)
         return result.http_response(int(request.POST.get("pretty", 0)))
 
     #auto_password = request.POST.get('autoPassword', 'false') == 'true'
     data = form.cleaned_data
-    #email = data['email']
+    email = data['email']
     
     
-    #if UserEmail.objects.filter(email=email).exists():
-    #    LOGGER.info("User with email %s exists", email)
-    #    result = responses.Result(409, responses.STATUS_USER_EXISTS,
-    #        _("User with email %(email)s exists" % {'email':email}))
-    #    #return HttpResponse(result.to_json(), mimetype='application/json')
-    #    return result.http_response(data.get("pretty"))
-    
-    mobile = data.get('mobile')
-    if mobile and UserMobile.objects.filter(mobile=mobile).exists():
-        LOGGER.info("User with mobile %s exists", mobile)
+    if UserEmail.objects.filter(email=email).exists():
+        LOGGER.info("User with email %s exists", email)
         result = responses.Result(409, responses.STATUS_USER_EXISTS,
-            _("User with mobile %(mobile)s exists" % {'mobile':mobile}))
+            _("User with email %(email)s exists" % {'email':email}))
         #return HttpResponse(result.to_json(), mimetype='application/json')
         return result.http_response(data.get("pretty"))
+    
+#     mobile = data.get('mobile')
+#     if mobile and UserMobile.objects.filter(mobile=mobile).exists():
+#         LOGGER.info("User with mobile %s exists", mobile)
+#         result = responses.Result(409, responses.STATUS_USER_EXISTS,
+#             _("User with mobile %(mobile)s exists" % {'mobile':mobile}))
+#         #return HttpResponse(result.to_json(), mimetype='application/json')
+#         return result.http_response(data.get("pretty"))
     
 #     if session.device and session.device.user and not session.device.user.guest_device:
 #         user_email = UserEmail.objects.filter(user=session.device.user)[0]
@@ -248,7 +255,7 @@ def sign_up(request, session):
 #         #return HttpResponse(result.to_json(), mimetype='application/json')
 #         return result.http_response(data.get("pretty"))
 
-    user = User(first=data.get('first'), last=data.get('last'), mobile_no=mobile,
+    user = User(first=data.get('first'), last=data.get('last'), email=email,
         dob=data.get('dob'), gender=data.get('gender'))
     user.password_hash = User.make_password(data['password'])
     user.save()
@@ -267,11 +274,15 @@ def sign_up(request, session):
     
     except Exception,e:
         print e
-    #UserEmail.objects.create(email=email, user=user, is_primary=True)
-    if mobile:
-        UserMobile.objects.create(mobile=mobile, is_verified=False, user=user)
-
-    LOGGER.info("Created user account with mobile: %s", mobile)
+        
+    print "created user"
+    UserEmail.objects.create(email=email, user=user, is_primary=True)
+#     if mobile:
+#         UserMobile.objects.create(mobile=mobile, is_verified=False, user=user)
+    
+    print "insereted data"
+    
+    LOGGER.info("Created user account with email: %s", email)
     
     client_secret = 'traceandgigit'
     if session.device:
@@ -281,33 +292,43 @@ def sign_up(request, session):
     
     
 
-    result = responses.Result(201, responses.STATUS_SUCCESS, _("Successfully created user account")%{"mobile":mobile},
-        extra_fields={"userid": user.id, "mobile":mobile})
+    result = responses.Result(201, responses.STATUS_SUCCESS, _("Successfully created user account")%{"email":email},
+        extra_fields={"userid": user.id, "email":email})
     return result.http_response(data.get("pretty"))
+
+
+@require_http_methods(['POST'])
+@require_valid_session
+def forgot_password(request, session):
+    token = ''.join(random.sample(string.digits, 6))
+    currentTime=datetime.datetime.now()- datetime.timedelta(minutes = int(15))
+    report_time=currentTime.strftime("%Y-%m-%d %H:%M:%S")
+    datetime_object = datetime.datetime.strptime(report_time, "%Y-%m-%d %H:%M:%S")
+
+
 
 @require_http_methods(['POST'])
 @require_valid_session
 def sign_in(request, session):
     
-    if session.user:
-        if session.user.is_guest():
-            LOGGER.info("Signin, signing out guest user %s", session.user.id)
-            trace_and_gigit_utils.sign_out(session, True)
-        else:
-            LOGGER.info("Signin, user=%s already logged in", session.user.id)
-            result = responses.Result(200,"SUCCESS", _("OK"))
-            return result.http_response(int(request.POST.get("pretty", 0)))
+#     if session.user:
+#         if session.user.is_guest():
+#             LOGGER.info("Signin, signing out guest user %s", session.user.id)
+#             trace_and_gigit_utils.sign_out(session, True)
+#         else:
+#             LOGGER.info("Signin, user=%s already logged in", session.user.id)
+#             result = responses.Result(200,"SUCCESS", _("OK"))
+#             return result.http_response(int(request.POST.get("pretty", 0)))
     try:
         userid = request.POST['email']
         password = request.POST['password']
         user = model_utils.get_user(userid)
         
-        
         password_hash = User.make_password(password)
-        
-        paswrd_check = model_utils.get_user(password_hash)
+        paswrd_check = model_utils.verify_passowrd(password_hash)
         if not paswrd_check:
             raise exceptions.InvalidParameterError("password")
+        
         
         
 
@@ -326,23 +347,33 @@ def sign_in(request, session):
                 result = responses.Result(403, common_responses.STATUS_ERR_DEVICE_LIMIT_EXCEEDED,
                         _("Number of devices registered for the user are exceeded")%{"email":userid})
                 return result.http_response(int(request.POST.get("pretty", 0)))
-
+        
         if not user.check_password(password):
             raise exceptions.InvalidParameterError("password")
-
+        
         # sign in the user
         session.user = user
-        session.save()
+        try:
+            session.save()
+        except Exception,e:
+            print e
+        
         if session.device and not session.device.user:
             session.device.user = user
             session.device.save()
+        print "about to success"
         LOGGER.info("Signed in user: %s", user)
         result = responses.Result(200, "SUCCESS", _("OK"))
     except KeyError, key:
+        print key
         LOGGER.warning("Missing parameter: %s", key)
         result = InvalidParameterResult(_("Missing or invalid userid/password"))
     except exceptions.InvalidParameterError, e:
+        print e
         LOGGER.warning("Missing parameter: %s", e.parameter_name)
+        result = InvalidParameterResult(_("Missing or invalid userid/password"))
+    except Exception,e:
+        print e
         result = InvalidParameterResult(_("Missing or invalid userid/password"))
     return result.http_response(int(request.POST.get("pretty", 0)))
 

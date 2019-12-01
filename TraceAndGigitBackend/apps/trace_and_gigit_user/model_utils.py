@@ -10,7 +10,7 @@ def get_user(username):
     if email.count() == 1:
         return email[0].user
     # try as mobile number
-    user = User.objects.filter(mobile_no=username).order_by('-created_on')
+    user = User.objects.filter(email=username).order_by('-created_on')
     if user.count() >= 1:
         return user[0]
     return None
@@ -20,5 +20,5 @@ def verify_passowrd(pasword):
     pasword_hash = User.objects.filter(password_hash= pasword);
     
     if pasword_hash.count() == 1:
-        return pasword_hash[0].user
+        return True
     return None

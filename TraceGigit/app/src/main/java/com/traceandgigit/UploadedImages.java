@@ -19,7 +19,6 @@ public class UploadedImages extends Activity {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +27,7 @@ public class UploadedImages extends Activity {
     }
 
     private void getTheUploadedPictures() {
-
+        
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Image");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -43,6 +42,5 @@ public class UploadedImages extends Activity {
                 mRecyclerView.setAdapter(downloadedImages);
             }
         });
-
     }
 }

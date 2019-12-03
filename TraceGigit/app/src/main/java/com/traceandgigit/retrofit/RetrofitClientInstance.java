@@ -2,6 +2,7 @@ package com.traceandgigit.retrofit;
 
 import com.traceandgigit.AppConstants;
 import com.traceandgigit.model.DeviceRegData;
+import com.traceandgigit.model.UserSignIn;
 import com.traceandgigit.model.UserSignUp;
 import com.traceandgigit.requests.SharedUtils;
 
@@ -63,13 +64,16 @@ public class RetrofitClientInstance {
 
         @FormUrlEncoded
         @POST("user/v1/signUp")
-        Call<UserSignUp> userSignUp(@Field("mobile") String mobile,
+        Call<UserSignUp> userSignUp(@Field("email") String mobile,
                                     @Field("password") String password,
                                     @Field("first") String first,
-                                    @Field("last") String last,
-                                    @Field("gender") String gender,
                                     @Field("clientKey") String clientKey);
 
+        @FormUrlEncoded
+        @POST("user/v1/signIn")
+        Call<UserSignIn> userSignIn(@Field("email") String mobile,
+                                    @Field("password") String password,
+                                    @Field("clientKey") String clientKey);
 
     }
 }

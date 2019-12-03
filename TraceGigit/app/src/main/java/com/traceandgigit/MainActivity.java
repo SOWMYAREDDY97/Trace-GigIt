@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,9 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
 
         gpsButton = findViewById(R.id.targetLocation);
         gpsButton.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
             showSettingsAlert();
         }
     }
-
-
 
     private class GeocoderHandler extends Handler {
         @Override

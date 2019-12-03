@@ -49,6 +49,8 @@
         <activity android:name=".UploadedImages"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".ForgotPasswordActivity"
+            android:screenOrientation="portrait"/>
         <meta-data
             android:name="com.parse.SERVER_URL"
             android:value="@string/serverUrl" />

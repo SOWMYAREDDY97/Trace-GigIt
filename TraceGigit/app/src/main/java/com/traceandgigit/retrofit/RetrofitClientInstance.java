@@ -1,7 +1,10 @@
 package com.traceandgigit.retrofit;
 
+import com.traceandgigit.AppConstants;
 import com.traceandgigit.model.DeviceRegData;
+import com.traceandgigit.model.UserSignIn;
 import com.traceandgigit.model.UserSignUp;
+import com.traceandgigit.requests.SharedUtils;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -29,18 +32,19 @@ public class RetrofitClientInstance {
     //Its a Singleton Method
 
     public static RetrofitClientInstance getInstance() {
-        if (_self == null) {
+        if (_self == null || AppConstants.DID_API_CHANGED) {
             _self = new RetrofitClientInstance();
         }
         return _self;
     }
 
     private void init(){
-        if (retrofit == null) {
+        if (retrofit == null || AppConstants.DID_API_CHANGED) {
             retrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(BASE_SCHEME + BASE_HOST)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
+            AppConstants.DID_API_CHANGED = false;
         }
         mRetrofitInterface = retrofit.create(retrofitInterface.class);
     }
@@ -60,13 +64,16 @@ public class RetrofitClientInstance {
 
         @FormUrlEncoded
         @POST("user/v1/signUp")
-        Call<UserSignUp> userSignUp(@Field("mobile") String mobile,
+        Call<UserSignUp> userSignUp(@Field("email") String mobile,
                                     @Field("password") String password,
                                     @Field("first") String first,
-                                    @Field("last") String last,
-                                    @Field("gender") String gender,
                                     @Field("clientKey") String clientKey);
 
+        @FormUrlEncoded
+        @POST("user/v1/signIn")
+        Call<UserSignIn> userSignIn(@Field("email") String mobile,
+                                    @Field("password") String password,
+                                    @Field("clientKey") String clientKey);
 
     }
 }

@@ -2,12 +2,16 @@ package com.traceandgigit;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +20,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
+import com.parse.Parse;
 import com.traceandgigit.model.DeviceRegData;
 import com.traceandgigit.requests.DeviceRegistration;
 import com.traceandgigit.requests.SharedUtils;
@@ -45,7 +51,18 @@ public class SplashActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        setUpParseSDK();
         checkPermissions(this);
+    }
+
+    private void setUpParseSDK() {
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId(getString(R.string.appID))
+                // if desired
+                .clientKey(getString(R.string.clientKey))
+                .server("https://parseapi.back4app.com/")
+                .build()
+        );
     }
 
     private void initUI(){
@@ -58,7 +75,6 @@ public class SplashActivity extends Activity {
                 return true;
             }
         });
-        checkDeviceRegistration();
         startTimerToLaunchMain();
     }
     private void checkDeviceRegistration(){
@@ -68,12 +84,14 @@ public class SplashActivity extends Activity {
             public void onResponse(APIResponses<DeviceRegData> response) {
                 if(response != null && response.body() != null && response.body().clientKey != null){
                     SharedUtils.getInstance(SplashActivity.this).setString(AppConstants.CLIENT_KEY,response.body().clientKey);
+                    launchSignInActivity();
                 }
             }
 
             @Override
             public void onFailure(Throwable t, int errorCode) {
                 Log.d(this.getClass().getCanonicalName(),t.toString());
+                Toast.makeText(SplashActivity.this,"Device Reg failed",Toast.LENGTH_LONG).show();
             }
         });
         APIService.getInstance().execute(registration);
@@ -96,8 +114,8 @@ public class SplashActivity extends Activity {
                 if(!scheme.getText().toString().isEmpty() && !host.getText().toString().isEmpty()){
                     RetrofitClientInstance.BASE_SCHEME = scheme.getText().toString();
                     RetrofitClientInstance.BASE_HOST = host.getText().toString();
-                    launchSignInActivity();
-
+                    AppConstants.DID_API_CHANGED = true;
+                    checkDeviceRegistration();
                 }else{
                     Toast.makeText(SplashActivity.this,"Please enter Scheme and Host",Toast.LENGTH_LONG).show();
                 }
@@ -112,7 +130,8 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 if(shouldNavigateToMain){
-                    launchSignInActivity();
+                    checkDeviceRegistration();
+
                 }
             }
         };
@@ -125,6 +144,51 @@ public class SplashActivity extends Activity {
         finish();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(SplashActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    showDialog(true);
+                }else
+                    showDialog(false);
+            }
+        }else{
+            initUI();
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void showDialog(final boolean shouldShowRationale) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle);
+        if (!shouldShowRationale) {
+            alertDialogBuilder.setMessage(getString(R.string.permission_warning_text));
+            alertDialogBuilder.setTitle(getString(R.string.permission_text));
+        } else {
+            alertDialogBuilder.setMessage(getString(R.string.permission_warning_settings));
+            alertDialogBuilder.setTitle(getString(R.string.permission_text));
+        }
+        alertDialogBuilder.setPositiveButton(shouldShowRationale ? getString(R.string.accept_from_settings) : getString(R.string.accept), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (shouldShowRationale) {
+                    //TODO: Redirect to settings
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivityForResult(intent, REQUEST_PERMISSION_SETTING);
+                } else
+                    checkPermissions(SplashActivity.this);
+
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.setCancelable(false);
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+    }
 
     private void checkPermissions(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

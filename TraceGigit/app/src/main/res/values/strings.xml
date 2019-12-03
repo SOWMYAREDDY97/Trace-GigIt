@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Trace And Gigit</string>
+
+    <string name="permission_warning_text">These permissions are mandatory to open the application</string>
+    <string name="permission_text">Mandatory Permissions</string>
+    <string name="permission_warning_settings">These permissions are mandatory to open the application\n- Storage\n- Telephone\nPlease allow them from settings</string>
+    <string name="accept_from_settings">Accept from settings</string>
+    <string name="accept">Accept</string>
+    
+    <string name="appID">tNdtxzBA1mX3o1LBXMU7QpbqHhjOaFooRYbfUxar</string>
+    <string name="clientKey">cOOSt9AAHrgJTfi2VpFBWuAm1wUhVJiToztr8MPO</string>
+    <string name="serverUrl">https://parseapi.back4app.com/</string>
+
 </resources>

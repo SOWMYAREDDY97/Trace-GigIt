@@ -56,14 +56,15 @@ def require_valid_session(view_func):
             return HttpResponse(result.to_json(), mimetype='application/json')
         try:
             if session and session.user:
-                mobile = session.user.mobile_no
+                email = session.user.email
             else:
-                mobile = 'Guest'
-            LOGGER.info("Request for %s from user :%s and ip is :%s"%(request.path,mobile,request.META.get('HTTP_X_FORWARDED_FOR')))
+                email = 'Guest'
+            LOGGER.info("Request for %s from user :%s and ip is :%s"%(request.path,email,request.META.get('HTTP_X_FORWARDED_FOR')))
             return view_func(request, session, *args, **kwargs)
         except Exception, e:
             LOGGER.error("Path: %s, Exception: %s", request.path, e)
             LOGGER.exception(e)
+            
             
             return ServerErrorResult().http_response()
     return decorated

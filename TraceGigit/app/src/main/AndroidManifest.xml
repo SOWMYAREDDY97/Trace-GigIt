@@ -21,6 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".SplashActivity">
@@ -44,6 +45,22 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".TakePictureAndUpload"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".UploadedImages"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ForgotPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <meta-data
+            android:name="com.parse.SERVER_URL"
+            android:value="@string/serverUrl" />
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="@string/appID" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="@string/clientKey" />
+
 
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"

@@ -1,6 +1,8 @@
 package com.traceandgigit.requests;
 
 import android.app.Activity;
+
+import com.traceandgigit.model.UserSignIn;
 import com.traceandgigit.model.UserSignUp;
 import com.traceandgigit.retrofit.APICallback;
 import com.traceandgigit.retrofit.APIRequest;
@@ -11,31 +13,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserSignUpCall extends APIRequest {
+public class UserSignInCall extends APIRequest {
 
 
 
     private Activity mActivity;
-    private Call<UserSignUp> mUserSignUpCall;
+    private Call<UserSignIn> mUserSignInCall;
     private Params mParams;
 
     public static class Params {
         String mobile;
         String password;
-        String first;
-        String last;
-        String gender;
         String clientKey;
-        public Params(String mobile, String password, String first, String clientKey){
+        public Params(String mobile, String password, String clientKey){
             this.mobile = mobile;
             this.password = password;
-            this.first = first;
-            //this.last = last;
-           // this.gender = gender;
             this.clientKey = clientKey;
         }
     }
-    public UserSignUpCall(Params params,APICallback mListener) {
+    public UserSignInCall(Params params, APICallback mListener) {
         super(mListener);
         this.mParams = params;
     }
@@ -43,25 +39,24 @@ public class UserSignUpCall extends APIRequest {
     @Override
     protected void execute(RetrofitClientInstance clientInstance) {
 
-        mUserSignUpCall = RetrofitClientInstance.getInstance().mRetrofitInterface.userSignUp(mParams.mobile,
+        mUserSignInCall = RetrofitClientInstance.getInstance().mRetrofitInterface.userSignIn(mParams.mobile,
                 mParams.password,
-                mParams.first,
                 mParams.clientKey);
 
 
-        mUserSignUpCall.enqueue(new Callback<UserSignUp>() {
+        mUserSignInCall.enqueue(new Callback<UserSignIn>() {
             @Override
-            public void onResponse(Call<UserSignUp> call, Response<UserSignUp> response) {
+            public void onResponse(Call<UserSignIn> call, Response<UserSignIn> response) {
                 APIResponses apiResponse = new APIResponses(response.body(),null);
                 apiResponse.setSuccess(response.isSuccessful());
                 if(null != response.body()){
                     apiResponse.setMessage(response.body().message);
                 }
-                UserSignUpCall.this.onResponse(apiResponse);
+                UserSignInCall.this.onResponse(apiResponse);
             }
 
             @Override
-            public void onFailure(Call<UserSignUp> call, Throwable t) {
+            public void onFailure(Call<UserSignIn> call, Throwable t) {
 
             }
         });

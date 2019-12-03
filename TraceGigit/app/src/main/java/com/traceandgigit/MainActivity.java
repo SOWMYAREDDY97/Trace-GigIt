@@ -3,6 +3,7 @@ package com.traceandgigit;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Context;
@@ -25,6 +26,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.traceandgigit.retrofit.RetrofitClientInstance;
 
 import java.util.List;
 import java.util.Locale;
@@ -32,10 +40,9 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView mButton1,gpsButton,animFrame;
+    private ImageView mButton1,mButton2,gpsButton,animFrame;
     private LocationManager locationManager;
     private Location location;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mButton1 = findViewById(R.id.image1);
+        mButton2 = findViewById(R.id.image2);
         mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +59,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        mButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UploadedImages.class);
+                startActivity(intent);
+            }
+        });
 
         gpsButton = findViewById(R.id.targetLocation);
         gpsButton.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         animFrame = findViewById(R.id.animFrame);
+        Log.e("SCHEME", RetrofitClientInstance.BASE_SCHEME);
+        Log.e("HOST", RetrofitClientInstance.BASE_HOST);
 
     }
 
@@ -82,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
             showSettingsAlert();
         }
     }
-
-
 
     private class GeocoderHandler extends Handler {
         @Override

@@ -187,6 +187,7 @@ class Session(models.Model):
         # save to cache
         if self.client_key:
             now = datetime.datetime.now()
+            now = now.replace(tzinfo=None) 
             cache_key = self.DEVICE_CACHE_PREFIX % self.client_key
             cache_time = (self.expires_at - now).seconds
             LOGGER.debug("Saved device session to cache, key: %s", cache_key)

@@ -72,7 +72,7 @@
 
             <TextView
                 android:id="@+id/userIdText"
-                android:text="Phone or Email"
+                android:text="Email"
                 android:textAlignment="center"
                 android:padding="16dp"
                 android:textStyle="bold"
@@ -84,6 +84,7 @@
             <EditText
                 android:id="@+id/userId"
                 android:layout_marginRight="36dp"
+                android:inputType="textEmailAddress"
                 android:background="@drawable/edit_text_background"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -113,6 +114,7 @@
                 android:layout_marginRight="36dp"
                 android:background="@drawable/edit_text_background"
                 android:layout_width="0dp"
+                android:inputType="textPassword"
                 android:layout_weight="1"
                 android:layout_height="60dp"/>
         </LinearLayout>

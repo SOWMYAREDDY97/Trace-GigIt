@@ -28,11 +28,16 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 public class TakePictureAndUpload extends Activity {
@@ -64,7 +69,7 @@ public class TakePictureAndUpload extends Activity {
         uploadPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dispatchUploadPicture();
+                uploadPictureToParse();
             }
         });
 
@@ -91,6 +96,50 @@ public class TakePictureAndUpload extends Activity {
         }
     }
 
+    private void uploadPictureToParse(){
+        ParseFile file = null;
+        try {
+            file = new ParseFile("picturePath", readInFile(getFileFromBitMap().getPath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Upload the image into Parse Cloud
+        file.saveInBackground();
+
+        // Create a New Class called "ImageUpload" in Parse
+        ParseObject imgupload = new ParseObject("Image");
+
+        // Create a column named "ImageName" and set the string
+        imgupload.put("Image", "picturePath");
+
+
+        // Create a column named "ImageFile" and insert the image
+        imgupload.put("ImageFile", file);
+
+        // Create the class and the columns
+        imgupload.saveInBackground();
+
+        // Show a simple toast message
+        Toast.makeText(this, "Image Saved, Upload another one ",Toast.LENGTH_SHORT).show();
+
+    }
+
+    private byte[] readInFile(String path) throws IOException {
+        // TODO Auto-generated method stub
+        byte[] data = null;
+        File file = new File(path);
+        InputStream input_stream = new BufferedInputStream(new FileInputStream(
+                file));
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        data = new byte[16384]; // 16K
+        int bytes_read;
+        while ((bytes_read = input_stream.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, bytes_read);
+        }
+        input_stream.close();
+        return buffer.toByteArray();
+
+    }
 
     private void dispatchUploadPicture(){
         getApplicationContext().startService(new Intent(getApplicationContext(), TransferService.class));

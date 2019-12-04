@@ -221,5 +221,12 @@ class UserEmail(models.Model):
         except:
             LOGGER.info("No email for this user")
         return email
+    
+    
+class EmailToken(models.Model):
+    email = models.EmailField(unique=True, db_index=True)
+    token = models.CharField(max_length=12, db_index=True)
+    expires_at = models.DateTimeField(null=True, default=None)
+    created_on = models.DateTimeField(auto_now_add=True)
 
 

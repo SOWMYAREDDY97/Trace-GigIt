@@ -43,6 +43,22 @@ class DeviceRegistrationForm(BaseForm):
         return self.cleaned_data['clientSecret']
 
 
+
+class resetForm(BaseForm):
+    email = forms.CharField()
+    password = forms.CharField(min_length=6, max_length=32)
+    conform_password = forms.CharField(min_length=6, max_length=32)
+    otp = forms.IntegerField()
+    def clean(self):
+        cleaned_data = super(resetForm, self).clean()
+        password = cleaned_data.get('password')
+        
+        # clean up char fields
+        for field in ('first', 'last'):
+            if cleaned_data.get(field):
+                cleaned_data[field] = strip_unsafe_html(cleaned_data[field])
+        return cleaned_data
+
 class SignUpForm(BaseForm):
     email = forms.CharField()
     password = forms.CharField(min_length=6, max_length=32)

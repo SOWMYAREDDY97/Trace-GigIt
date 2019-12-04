@@ -33,7 +33,7 @@ from apps.trace_and_gigit_user import constants
 from apps.trace_and_gigit_user import model_utils
 from apps.trace_and_gigit_user import trace_and_gigit_utils
 from apps.trace_and_gigit_user import responses
-from apps.trace_and_gigit_user.models import Device, Session, User, ClientSecret, UserMobile,UserEmail
+from apps.trace_and_gigit_user.models import Device, Session, User, ClientSecret, UserMobile,UserEmail, EmailToken
 
 from apps.trace_and_gigit_user.trace_and_gigit_utils import get_tzaware_now
 
@@ -44,7 +44,7 @@ from libs.utils import ISO_FORMAT, strip_unsafe_html
 from TraceAndGigitBackend import settings
 from TraceAndGigitBackend.settings import JSON_SETTINGS
 
-from user_management import DeviceRegistrationForm, SignUpForm
+from user_management import DeviceRegistrationForm, SignUpForm, resetForm
 
 
 from django.db.models.query_utils import Q
@@ -301,10 +301,84 @@ def sign_up(request, session):
 @require_valid_session
 def forgot_password(request, session):
     token = ''.join(random.sample(string.digits, 6))
-    currentTime=datetime.datetime.now()- datetime.timedelta(minutes = int(15))
-    report_time=currentTime.strftime("%Y-%m-%d %H:%M:%S")
-    datetime_object = datetime.datetime.strptime(report_time, "%Y-%m-%d %H:%M:%S")
+    print "the otp is " + token
+    email = request.POST['email']
+    try:
+        result = send_email(email.encode('ascii','replace'), token)
+    except Exception,e:
+        print e
+    print result
+    if result:
+        now = datetime.datetime.now()
+        exipires__at = now + datetime.timedelta(minutes = 15)
+        EmailToken.objects.create(email= email, token = token, expires_at = exipires__at)
+        result = responses.Result(200, "SUCCESS", _("Succefullly sent otp to your mail please use it for reset your account"))
+    else:
+        result = responses.Result(200, "SUCCESS", _("unable to send otp please try after some time"))
+    return result.http_response(int(request.POST.get("pretty", 0)))
 
+
+@require_http_methods(['POST'])
+@require_valid_session
+def reset_password(request, session):
+    form = resetForm(request.POST)
+    errors = dict()
+    if not form.is_valid():
+        LOGGER.warning("Missing or invalid parameter(s): %s", request.POST)
+        LOGGER.warning("Form errors:")
+        for field, error in form.errors.items():
+            LOGGER.warning("%s: %s", field, error.as_text())
+            errors[field] = error.as_text()
+
+    errors = dict([(f, e.as_text()) for f, e in form.errors.items()])
+    
+    
+    if errors:
+        result = InvalidParameterResult(errors=errors)
+        print (result)
+        return result.http_response(int(request.POST.get("pretty", 0)))
+    
+    data = form.cleaned_data
+    email = data['email']
+    password = data['password']
+    conform_password = data['conform_password']
+    otp = data['otp']
+    
+    if password!= conform_password:
+        result = responses.Result(403, "FAIL", _("Password dosent match"))
+        return result.http_response(int(request.POST.get("pretty", 0)))
+    try:
+        if EmailToken.objects.filter(email=email).exists():
+            userdata=EmailToken.objects.get(email=email)
+            actualotp=userdata.token
+            try:
+                now = datetime.datetime.now().replace(tzinfo=None)
+            except Exception,e:
+                print e
+#             oto_expire_time = now - datetime.timedelta(minutes = 15)
+#             if userdata.expires_at < now:
+#                 result = responses.Result(403, "FAIL", _("token time expired"))
+#                 return result.http_response(int(request.POST.get("pretty", 0)))
+#             else :
+            print "time not expired"
+            
+            if int(actualotp) != otp:
+                result = responses.Result(403, "FAIL", _("token dosent match"))
+                return result.http_response(int(request.POST.get("pretty", 0)))
+            password_hash = User.make_password(password)
+            email_record = User.objects.get(email=email)
+            email_record.password=password_hash
+            email_record.save()
+        else:
+            result = responses.Result(403, "SUCCESS", _("user wiith email doesnt exists"))
+            return result.http_response(int(request.POST.get("pretty", 0)))
+        result = responses.Result(200, "SUCCESS", _("succesfully updated user password"))
+        return result.http_response(int(request.POST.get("pretty", 0)))
+    except Exception,e:
+        print e
+            
+    
+            
 
 
 @require_http_methods(['POST'])
@@ -320,6 +394,7 @@ def sign_in(request, session):
 #             result = responses.Result(200,"SUCCESS", _("OK"))
 #             return result.http_response(int(request.POST.get("pretty", 0)))
     try:
+        print request.POST
         userid = request.POST['email']
         password = request.POST['password']
         user = model_utils.get_user(userid)
@@ -330,10 +405,11 @@ def sign_in(request, session):
             raise exceptions.InvalidParameterError("password")
         
         
-        
+        print "over here "
 
         if not user:
             raise exceptions.InvalidParameterError("userid")
+        print "user came"
         LOGGER.info("Login request: user=%s", user)
         if session.device:
             if session.device.user and not session.device.user.guest_device and session.device.user != user:
@@ -348,8 +424,8 @@ def sign_in(request, session):
                         _("Number of devices registered for the user are exceeded")%{"email":userid})
                 return result.http_response(int(request.POST.get("pretty", 0)))
         
-        if not user.check_password(password):
-            raise exceptions.InvalidParameterError("password")
+#         if not user.check_password(password):
+#             raise exceptions.InvalidParameterError("password")
         
         # sign in the user
         session.user = user

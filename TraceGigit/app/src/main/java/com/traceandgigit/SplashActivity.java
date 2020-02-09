@@ -115,7 +115,8 @@ public class SplashActivity extends Activity {
                     RetrofitClientInstance.BASE_SCHEME = scheme.getText().toString();
                     RetrofitClientInstance.BASE_HOST = host.getText().toString();
                     AppConstants.DID_API_CHANGED = true;
-                    checkDeviceRegistration();
+                    //checkDeviceRegistration();
+
                 }else{
                     Toast.makeText(SplashActivity.this,"Please enter Scheme and Host",Toast.LENGTH_LONG).show();
                 }
@@ -130,7 +131,8 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 if(shouldNavigateToMain){
-                    checkDeviceRegistration();
+                    //checkDeviceRegistration();
+                    launchSignInActivity();
 
                 }
             }

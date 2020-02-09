@@ -1,6 +1,8 @@
 package com.traceandgigit;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +11,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 import com.traceandgigit.model.UserSignIn;
 import com.traceandgigit.requests.SharedUtils;
 import com.traceandgigit.requests.UserSignInCall;
@@ -23,6 +29,8 @@ public class SignInActivity extends Activity {
     private EditText userId;
     private EditText password;
     private  Button login,forgotPassword;
+    public static String object_id = null;
+    public static String email = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +61,33 @@ public class SignInActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(checkNoEmptyFields()){
-                    makeSignInAPICall();
+                    //makeSignInAPICall();
+
+                    final ProgressDialog dlg = new ProgressDialog(SignInActivity.this);
+                    dlg.setTitle("Please, wait a moment.");
+                    dlg.setMessage("Logging in...");
+                    dlg.show();
+
+
+                    ParseUser.logInInBackground(userId.getText().toString(), password.getText().toString(), new LogInCallback() {
+                        @Override
+                        public void done(ParseUser parseUser, ParseException e) {
+                            if (parseUser != null) {
+                                dlg.dismiss();
+                                alertDisplayer("Sucessful Login","Welcome back " + userId.getText().toString() + "!");
+
+                                object_id = parseUser.getObjectId();
+
+                            } else {
+                                dlg.dismiss();
+                                ParseUser.logOut();
+                                Toast.makeText(SignInActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+
+
                 }else{
                     Toast.makeText(SignInActivity.this, "Email or Password is empty. Please check",Toast.LENGTH_LONG).show();
                 }
@@ -106,5 +140,26 @@ public class SignInActivity extends Activity {
                 && password != null
                 && password.getText() != null
                 && !password.getText().toString().isEmpty();
+    }
+
+
+
+    private void alertDisplayer(String title,String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        email= userId.getText().toString();
+                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                        intent.putExtra("email", userId.getText().toString());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                });
+        AlertDialog ok = builder.create();
+        ok.show();
     }
 }

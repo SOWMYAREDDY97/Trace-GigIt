@@ -2,17 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.traceandgigit">
-
     <!-- Permission must be declared in order to use Internet -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-
-    <!-- This is called the Android Manifest This is where all the Activities,
-     Receivers, Services, and meta-data are declared and is used across the life time of the app -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -23,34 +19,39 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".notification"></activity>
         <activity android:name=".SplashActivity">
             <intent-filter>
+
                 <!-- This will tell Android OS that the Activity is the Main one when App opens -->
                 <action android:name="android.intent.action.MAIN" />
 
-                <!-- This will tell Android OS that this Activity is the one
-                     that should be opened when user clicks on App Icon     -->
+                <!--
+                     This will tell Android OS that this Activity is the one
+                     that should be opened when user clicks on App Icon
+                -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TakePictureAndUpload"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UploadedImages"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".SignInActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".SignUpActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TakePictureAndUpload"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".UploadedImages"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ForgotPasswordActivity"
-            android:screenOrientation="portrait"/>
         <meta-data
             android:name="com.parse.SERVER_URL"
             android:value="@string/serverUrl" />
@@ -61,14 +62,12 @@
             android:name="com.parse.CLIENT_KEY"
             android:value="@string/clientKey" />
 
-
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
-
-        <service android:name=".FetchAddressService"
-            android:exported="false"/>
-
+        <service
+            android:name=".FetchAddressService"
+            android:exported="false" />
     </application>
 
 </manifest>

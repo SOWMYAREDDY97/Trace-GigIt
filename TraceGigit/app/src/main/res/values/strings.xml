@@ -7,8 +7,6 @@
     <string name="accept_from_settings">Accept from settings</string>
     <string name="accept">Accept</string>
 
-    <string name="appID">tNdtxzBA1mX3o1LBXMU7QpbqHhjOaFooRYbfUxar</string>
-    <string name="clientKey">cOOSt9AAHrgJTfi2VpFBWuAm1wUhVJiToztr8MPO</string>
     <string name="appID">djhlFxGOQfhfypTukQISkMkupmtjrLaQ2a0miLfx</string>
     <string name="clientKey">kVu1vQdYpqtdRrTy2fVucCKmVvC8TbRgf2lRK9gV</string>
     <string name="serverUrl">https://parseapi.back4app.com/</string>

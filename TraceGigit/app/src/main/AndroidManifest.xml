@@ -21,6 +21,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".notification"></activity>
+        <activity android:name=".Employee_ScheduleDetails"></activity>
         <activity android:name=".Owner_NotoficationsActivity"></activity>
         <activity android:name=".SplashActivity">
             <intent-filter>

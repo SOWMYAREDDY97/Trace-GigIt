@@ -1,4 +1,4 @@
-package com.traceandgigit.retrofit;
+package com.traceandgigit;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -33,11 +33,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.024" />
     <!--    <ImageView-->
-    <!--        android:id="@+id/imageLogo"-->
+    <!--        android:id="@+id/imagelogo"-->
     <!--        android:layout_width="80dp"-->
     <!--        android:layout_height="80dp"-->
     <!--        android:padding="4dp"-->
-    <!--        android:src="@drawable/imageLogo"-->
+    <!--        android:src="@drawable/imagelogo"-->
     <!--        app:layout_constraintBottom_toBottomOf="parent"-->
     <!--        app:layout_constraintEnd_toEndOf="parent"-->
     <!--        app:layout_constraintHorizontal_bias="0.015"-->
@@ -171,6 +171,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.208"
-        app:srcCompat="@drawable/imageLogo" />
+        app:srcCompat="@drawable/imagelogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

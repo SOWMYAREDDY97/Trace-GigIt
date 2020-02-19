@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".retrofit.saloonDetails"></activity>
+        <activity android:name=".saloonDetails"></activity>
         <activity android:name=".notification" />
         <activity android:name=".Employee_ScheduleDetails" />
         <activity android:name=".Owner_NotoficationsActivity" />

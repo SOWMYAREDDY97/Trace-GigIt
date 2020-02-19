@@ -21,7 +21,7 @@ public class NavigationActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-        mDrawerLayout = findViewById(R.id.draw1);
+        mDrawerLayout = findViewById(R.id.drawer);
         mToogle = new ActionBarDrawerToggle(this,mDrawerLayout, R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToogle);
         mToogle.syncState();

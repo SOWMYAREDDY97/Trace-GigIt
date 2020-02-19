@@ -12,6 +12,8 @@
         android:background="@color/colorPrimary"
         app:itemTextColor="@color/colorPrimaryDark"
         app:itemIconTint="@color/colorAccent"
-        app:menu="@menu/drawermenu" />
+        app:menu="@menu/drawermenu"
+
+        />
 
 </androidx.drawerlayout.widget.DrawerLayout>

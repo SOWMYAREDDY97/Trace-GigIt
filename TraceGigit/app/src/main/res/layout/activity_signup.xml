@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
-                android:id="@+id/userId"
+                android:id="@+id/forgot_password_email"
                 android:layout_marginRight="36dp"
                 android:inputType="textEmailAddress"
                 android:background="@drawable/edit_text_background"
@@ -121,7 +121,7 @@
 
 
         <Button
-            android:id="@+id/login"
+            android:id="@+id/back"
             android:text="Create Account"
             android:textSize="18sp"
             android:textAllCaps="false"

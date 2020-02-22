@@ -22,7 +22,6 @@ import com.traceandgigit.requests.UserSignInCall;
 import com.traceandgigit.retrofit.APICallback;
 import com.traceandgigit.retrofit.APIResponses;
 import com.traceandgigit.retrofit.APIService;
-import com.traceandgigit.retrofit.RetrofitClientInstance;
 
 public class SignInActivity extends Activity {
 
@@ -37,8 +36,8 @@ public class SignInActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         Button newUserButton = findViewById(R.id.newUserButton);
-        login = findViewById(R.id.login);
-        userId = findViewById(R.id.userId);
+        login = findViewById(R.id.back);
+        userId = findViewById(R.id.forgot_password_email);
         password = findViewById(R.id.password);
         forgotPassword = findViewById(R.id.forgotPassword);
 

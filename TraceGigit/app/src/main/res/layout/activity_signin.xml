@@ -48,7 +48,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/userId"
+            android:id="@+id/forgot_password_email"
             android:layout_marginLeft="36dp"
             android:layout_marginRight="36dp"
             android:background="@drawable/edit_text_background"
@@ -76,7 +76,7 @@
             android:layout_height="45dp"/>
 
         <Button
-            android:id="@+id/login"
+            android:id="@+id/back"
             android:text="Log In"
             android:textSize="16sp"
             android:textAllCaps="false"

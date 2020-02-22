@@ -38,9 +38,9 @@ public class SignUpActivity extends Activity {
         setContentView(R.layout.activity_signup);
 
         Button newUserButton = findViewById(R.id.newUserButton);
-        Button loginButton = findViewById(R.id.login);
+        Button loginButton = findViewById(R.id.back);
         userFullname = findViewById(R.id.fullName);
-        userEmail = findViewById(R.id.userId);
+        userEmail = findViewById(R.id.forgot_password_email);
         userPassword = findViewById(R.id.password);
 
         newUserButton.setOnClickListener(new View.OnClickListener() {

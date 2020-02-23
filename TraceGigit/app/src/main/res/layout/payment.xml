@@ -21,7 +21,7 @@
 
     <Button
 
-        android:id="@+id/pay"
+        android:id="@+id/pay_now"
         android:layout_width="241dp"
         android:layout_height="35dp"
         android:layout_alignParentTop="true"
@@ -60,13 +60,13 @@
         android:text="Expiration Date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.617"
+        app:layout_constraintHorizontal_bias="0.257"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.396" />
+        app:layout_constraintVertical_bias="0.384" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/cvv"
         android:layout_width="117dp"
         android:layout_height="40dp"
         android:ems="10"
@@ -80,7 +80,7 @@
         app:layout_constraintVertical_bias="0.384" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/postal_code"
         android:layout_width="344dp"
         android:layout_height="58dp"
         android:ems="10"
@@ -108,7 +108,7 @@
         app:layout_constraintVertical_bias="0.273" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/mobile_number"
         android:layout_width="344dp"
         android:layout_height="58dp"
         android:ems="10"

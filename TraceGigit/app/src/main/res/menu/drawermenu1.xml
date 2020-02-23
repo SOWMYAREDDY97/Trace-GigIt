@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:title="Home" />
+    <item
+        android:id="@+id/profile_edit"
+        android:clickable="true"
+        android:title="Profile" />
+
+
+
+
+    <item android:id="@+id/notifications"
+        android:title="Notifications" />
+
+
+    <item
+        android:id="@+id/settings"
+        android:title="Settings" />
+    <item
+        android:id="@+id/contactus"
+        android:title="Contact Us" />
+
+
+
+</menu>

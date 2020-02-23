@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer"
+    tools:context=".MainActivity">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,14 +21,6 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
 
-       <ImageView
-           android:id="@+id/appLogo"
-           android:src="@drawable/app_logo"
-           android:layout_marginTop="18dp"
-           android:layout_marginLeft="18dp"
-           android:padding="4dp"
-           android:layout_width="80dp"
-           android:layout_height="80dp"/>
 
 
        <TextView
@@ -30,7 +31,7 @@
            android:padding="8dp"
            android:textColor="@android:color/black"
            android:layout_gravity="center_vertical"
-           android:layout_marginStart="48dp"
+           android:layout_marginStart="148dp"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"/>
 
@@ -120,3 +121,14 @@
         android:layout_height="wrap_content"/>
 
 </RelativeLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:menu="@menu/drawermenu1"
+        android:layout_gravity="start"
+        >
+
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -29,6 +32,13 @@ public class SignUpActivity extends Activity {
     private EditText userFullname;
     private EditText userEmail;
     private EditText userPassword;
+    private EditText shopName;
+    private EditText shopAddress;
+    private EditText shopNumber;
+    private RadioButton customer,owner;
+    private RadioGroup ownerCustGroup;
+    private LinearLayout shopNumberLayout, address, shopNameLayout;
+    private boolean isOwner = false;
     public static String email, object_id = null;
 
 
@@ -38,11 +48,18 @@ public class SignUpActivity extends Activity {
         setContentView(R.layout.activity_signup);
 
         Button newUserButton = findViewById(R.id.newUserButton);
-        Button loginButton = findViewById(R.id.back);
+        Button loginButton = findViewById(R.id.login);
         userFullname = findViewById(R.id.fullName);
-        userEmail = findViewById(R.id.forgot_password_email);
+        userEmail = findViewById(R.id.userId);
         userPassword = findViewById(R.id.password);
+        customer = findViewById(R.id.customerRadio);
+        owner = findViewById(R.id.ownerRadio);
+        shopNameLayout = findViewById(R.id.shopNameLayout);
+        shopNumberLayout = findViewById(R.id.shopNumberLayout);
+        address = findViewById(R.id.address);
+        customer.setChecked(true);
 
+        ownerCustGroup = findViewById(R.id.radioGroup);
         newUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +68,30 @@ public class SignUpActivity extends Activity {
                 finish();
             }
         });
+
+        ownerCustGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                View radioButton = group.findViewById(checkedId);
+                int index = group.indexOfChild(radioButton);
+
+                switch (index) {
+                    case 0: // first button
+                        shopNameLayout.setVisibility(View.VISIBLE);
+                        shopNumberLayout.setVisibility(View.VISIBLE);
+                        address.setVisibility(View.VISIBLE);
+                        isOwner = true;
+                        break;
+                    case 1: // secondbutton
+                        shopNameLayout.setVisibility(View.GONE);
+                        shopNumberLayout.setVisibility(View.GONE);
+                        address.setVisibility(View.GONE);
+                        isOwner = false;
+                        break;
+                }
+            }
+        });
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +133,13 @@ public class SignUpActivity extends Activity {
 
             }
         });
+    }
+
+    private boolean areOwnerFieldsEmpty(){
+        if(!isOwner) return true;
+        return !shopAddress.getText().toString().isEmpty()
+                && !shopName.getText().toString().isEmpty()
+                && !shopNumber.getText().toString().isEmpty();
     }
 
     private boolean areFieldsEmpty() {

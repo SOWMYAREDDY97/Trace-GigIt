@@ -8,7 +8,7 @@
         android:orientation="vertical"
         android:layout_height="0dp"
         android:gravity="center"
-        android:layout_weight="0.4">
+        android:layout_weight="0.3">
 
         <ImageView
             android:id="@+id/appLogo"
@@ -26,120 +26,262 @@
         android:orientation="vertical"
         android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/loginText"
-            android:text="SIGN UP"
-            android:textSize="22sp"
-            android:padding="12sp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/fullNameText"
-                android:text="Full Name"
-                android:textAlignment="center"
-                android:padding="16dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/fullName"
-                android:layout_marginRight="36dp"
-                android:background="@drawable/edit_text_background"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="50dp"/>
+                <TextView
+                    android:id="@+id/loginText"
+                    android:text="SIGN UP"
+                    android:textSize="22sp"
+                    android:padding="12sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="24dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/accountType"
+                        android:text="Account Type"
+                        android:textAlignment="center"
+                        android:padding="16dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"/>
 
-            <TextView
-                android:id="@+id/userIdText"
-                android:text="Email"
-                android:textAlignment="center"
-                android:padding="16dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"/>
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/forgot_password_email"
-                android:layout_marginRight="36dp"
-                android:inputType="textEmailAddress"
-                android:background="@drawable/edit_text_background"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="80dp"/>
-        </LinearLayout>
+                        <RadioButton
+                            android:id="@+id/ownerRadio"
+                            android:text="Owner"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <RadioButton
+                            android:id="@+id/customerRadio"
+                            android:text="Customer"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="24dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/passwordText"
-                android:text="Password"
-                android:textAlignment="center"
-                android:padding="16dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"/>
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_marginRight="36dp"
-                android:background="@drawable/edit_text_background"
-                android:layout_width="0dp"
-                android:inputType="textPassword"
-                android:layout_weight="1"
-                android:layout_height="60dp"/>
-        </LinearLayout>
+                    </RadioGroup>
+                </LinearLayout>
 
 
-        <Button
-            android:id="@+id/back"
-            android:text="Create Account"
-            android:textSize="18sp"
-            android:textAllCaps="false"
-            android:layout_marginTop="24dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/newUserButton"
-            android:layout_gravity="end"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="16dp"
-            android:textSize="16sp"
-            android:text="Existing User ->"
-            android:textAllCaps="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/fullNameText"
+                        android:text="Full Name"
+                        android:textAlignment="center"
+                        android:padding="16dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/fullName"
+                        android:layout_marginRight="36dp"
+                        android:background="@drawable/edit_text_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="50dp"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/address"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/shopLocationText"
+                        android:text="Address"
+                        android:textAlignment="center"
+                        android:padding="16dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/shopLocation"
+                        android:layout_marginRight="36dp"
+                        android:background="@drawable/edit_text_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="50dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/shopNameLayout"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/shopNameText"
+                        android:text="Shop Name"
+                        android:textAlignment="center"
+                        android:padding="16dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/shopName"
+                        android:layout_marginRight="36dp"
+                        android:background="@drawable/edit_text_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="50dp"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/userIdText"
+                        android:text="Email"
+                        android:textAlignment="center"
+                        android:padding="16dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/userId"
+                        android:layout_marginRight="36dp"
+                        android:inputType="textEmailAddress"
+                        android:background="@drawable/edit_text_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="80dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/shopNumberLayout"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/phoneNumberText"
+                        android:text="Phone"
+                        android:textAlignment="center"
+                        android:padding="16dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/phoneNumber"
+                        android:layout_marginRight="36dp"
+                        android:background="@drawable/edit_text_background"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="50dp"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/passwordText"
+                        android:text="Password"
+                        android:textAlignment="center"
+                        android:padding="16dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_marginRight="36dp"
+                        android:background="@drawable/edit_text_background"
+                        android:layout_width="0dp"
+                        android:inputType="textPassword"
+                        android:layout_weight="1"
+                        android:layout_height="60dp"/>
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/login"
+                    android:text="Create Account"
+                    android:textSize="18sp"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="24dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:id="@+id/newUserButton"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="16dp"
+                    android:textSize="16sp"
+                    android:text="Existing User ->"
+                    android:textAllCaps="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </ScrollView>
+
     </LinearLayout>
+
 
 </LinearLayout>

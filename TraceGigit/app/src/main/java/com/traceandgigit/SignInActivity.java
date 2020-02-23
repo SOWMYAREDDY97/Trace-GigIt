@@ -87,6 +87,8 @@ public class SignInActivity extends Activity {
 
 
 
+
+
                 }else{
                     Toast.makeText(SignInActivity.this, "Email or Password is empty. Please check",Toast.LENGTH_LONG).show();
                 }

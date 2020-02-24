@@ -19,7 +19,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NavigationActivity2"></activity>
+        <activity android:name=".menulist"></activity>
+        <activity android:name=".NavigationActivity2" />
         <activity android:name=".NavigationActivity" />
         <activity android:name=".retrofit.saloonDetails" />
         <activity android:name=".saloonDetails" />

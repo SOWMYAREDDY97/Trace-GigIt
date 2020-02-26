@@ -19,9 +19,8 @@ public class menulist extends AppCompatActivity {
     }
     public void onAddField(View v) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //final View rowView = inflater.inflate(R.layout.field, null);
-        // Add the new row before the add field button.
-       // parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+        final View rowView = inflater.inflate(R.layout.field, null);
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
     }
 
     public void onDelete(View v) {

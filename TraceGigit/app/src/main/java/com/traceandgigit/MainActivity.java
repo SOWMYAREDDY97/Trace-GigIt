@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
         gpsButton = findViewById(R.id.targetLocation);
         gpsButton.setOnClickListener(new View.OnClickListener() {
             @Override

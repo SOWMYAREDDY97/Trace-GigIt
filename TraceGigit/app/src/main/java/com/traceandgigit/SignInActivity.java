@@ -22,6 +22,7 @@ import com.traceandgigit.requests.UserSignInCall;
 import com.traceandgigit.retrofit.APICallback;
 import com.traceandgigit.retrofit.APIResponses;
 import com.traceandgigit.retrofit.APIService;
+import com.traceandgigit.retrofit.RetrofitClientInstance;
 
 public class SignInActivity extends Activity {
 
@@ -36,8 +37,8 @@ public class SignInActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         Button newUserButton = findViewById(R.id.newUserButton);
-        login = findViewById(R.id.back);
-        userId = findViewById(R.id.forgot_password_email);
+        login = findViewById(R.id.login);
+        userId = findViewById(R.id.userId);
         password = findViewById(R.id.password);
         forgotPassword = findViewById(R.id.forgotPassword);
 
@@ -73,7 +74,7 @@ public class SignInActivity extends Activity {
                         public void done(ParseUser parseUser, ParseException e) {
                             if (parseUser != null) {
                                 dlg.dismiss();
-                                alertDisplayer("Sucessful Login","Welcome back " + userId.getText().toString() + "!");
+                                alertDisplayer("Sucessful Login","Welcome back " + userId.getText().toString() + "!",parseUser.getBoolean(Constants.USER_TYPE));
 
                                 object_id = parseUser.getObjectId();
 
@@ -84,8 +85,6 @@ public class SignInActivity extends Activity {
                             }
                         }
                     });
-
-
 
 
 
@@ -145,7 +144,7 @@ public class SignInActivity extends Activity {
 
 
 
-    private void alertDisplayer(String title,String message){
+    private void alertDisplayer(String title, String message, final boolean isOwner){
         AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this)
                 .setTitle(title)
                 .setMessage(message)
@@ -154,7 +153,12 @@ public class SignInActivity extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                         email= userId.getText().toString();
-                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                        Intent intent = null;
+                        if (!isOwner) {
+                            intent = new Intent(SignInActivity.this, MainActivity.class);
+                        }else{
+                            intent = new Intent(SignInActivity.this, OwnerActivity.class);
+                        }
                         intent.putExtra("email", userId.getText().toString());
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);

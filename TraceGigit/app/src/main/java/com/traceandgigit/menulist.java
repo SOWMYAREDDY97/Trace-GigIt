@@ -1,12 +1,12 @@
 package com.traceandgigit;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class menulist extends AppCompatActivity {
     private LinearLayout parentLinearLayout;
@@ -15,7 +15,7 @@ public class menulist extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menulist);
-       parentLinearLayout = (LinearLayout) findViewById(R.id.parent_linear_layout);
+        parentLinearLayout = (LinearLayout) findViewById(R.id.parent_linear_layout);
     }
     public void onAddField(View v) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);

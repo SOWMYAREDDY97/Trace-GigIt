@@ -51,19 +51,10 @@ public class SplashActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        setUpParseSDK();
         checkPermissions(this);
     }
 
-    private void setUpParseSDK() {
-        Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId(getString(R.string.appID))
-                // if desired
-                .clientKey(getString(R.string.clientKey))
-                .server("https://parseapi.back4app.com/")
-                .build()
-        );
-    }
+
 
     private void initUI(){
         appLogo = findViewById(R.id.appLogo);

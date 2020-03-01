@@ -168,7 +168,7 @@ public class TakePictureAndUpload extends Activity {
                         .s3Client(new AmazonS3Client(AWSMobileClient.getInstance()))
                         .build();
 
-       // AmazonS3 mS3 = new AmazonS3Client(credentialsProvider);
+        // AmazonS3 mS3 = new AmazonS3Client(credentialsProvider);
 
         final TransferObserver mTransferObserver =
                 transferUtility.upload("traceandgigit","image_"+System.currentTimeMillis(),getFileFromBitMap(), CannedAccessControlList.PublicRead);

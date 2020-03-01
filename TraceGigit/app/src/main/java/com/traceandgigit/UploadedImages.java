@@ -27,7 +27,7 @@ public class UploadedImages extends Activity {
     }
 
     private void getTheUploadedPictures() {
-        
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Image");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override

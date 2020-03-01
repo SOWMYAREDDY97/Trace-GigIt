@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -58,6 +59,10 @@ public class SignUpActivity extends Activity {
         shopNumberLayout = findViewById(R.id.shopNumberLayout);
         address = findViewById(R.id.address);
         customer.setChecked(true);
+        shopName = findViewById(R.id.shopName);
+        shopAddress = findViewById(R.id.shopLocation);
+        shopNumber = findViewById(R.id.phoneNumber);
+
 
         ownerCustGroup = findViewById(R.id.radioGroup);
         newUserButton.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +108,11 @@ public class SignUpActivity extends Activity {
                     sing_up_user.setEmail(userEmail.getText().toString());
                     sing_up_user.setPassword(userPassword.getText().toString());
                     sing_up_user.setUsername(userFullname.getText().toString());
+                    sing_up_user.put(Constants.SHOP_NAME, shopName.getText().toString());
+                    sing_up_user.put(Constants.SHOP_ADDRESS, shopAddress.getText().toString());
+                    sing_up_user.put(Constants.SHOP_ADDRESS, shopAddress.getText().toString());
+                    sing_up_user.put(Constants.USER_TYPE, isOwner);
+
                     //sing_up_user.put("Mobile",(mobile.getText().toString()));
                     //sing_up_user.put("Address",(address.getText().toString()));
 
@@ -112,6 +122,7 @@ public class SignUpActivity extends Activity {
                             if (e == null) {
                                 //dlg.dismiss();
                                 object_id = sing_up_user.getObjectId();
+                                SharedUtils.getInstance(SignUpActivity.this).setString(Constants.SESSION_TOKEN,sing_up_user.getSessionToken());
                                 alertDisplayer("Sucessful Signup","Successfully signed up " + userEmail.getText().toString() + "!");
 
                             } else {
@@ -124,7 +135,14 @@ public class SignUpActivity extends Activity {
                     });
 
 
-                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                    Intent intent = null;
+                    if (!isOwner) {
+                        SystemClock.sleep(7000);
+                        intent = new Intent(SignUpActivity.this, MainActivity.class);
+                    }else{
+                        SystemClock.sleep(7000);
+                        intent = new Intent(SignUpActivity.this, SaloonProfileActivity.class);
+                    }
                     startActivity(intent);
                     finish();
                 }else{
@@ -197,7 +215,9 @@ public class SignUpActivity extends Activity {
                     }
                 });
         AlertDialog ok = builder.create();
-        ok.show();
+        if (!isFinishing()) {
+            ok.show();
+        }
     }
 
 }

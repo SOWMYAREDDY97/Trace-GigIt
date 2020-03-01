@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_margin="24dp"
+    android:background="@android:color/black"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/shopName"
+            tools:text="Trace and Gigit"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/light_grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="60dp"
+            android:thicknessRatio="1"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:layout_centerInParent="true"
+            android:background="@color/light_grey"
+            android:layout_below="@+id/shopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/initials"
+                    tools:text="SS"
+                    android:textAllCaps="true"
+                    android:layout_margin="18dp"
+                    android:textSize="38sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

@@ -6,7 +6,12 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:orientation="vertical"
-    tools:context=".menulist">>
+    tools:context=".menulist">
+<!--    <TextView -->
+<!--        android:id="@+id/input"-->
+<!--        android:layout_height="10dp"-->
+<!--        android:layout_weight="4"-->
+<!--        android:text="service name"/>-->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="50dp"

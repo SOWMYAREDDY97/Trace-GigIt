@@ -37,7 +37,7 @@ public class SignInActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         Button newUserButton = findViewById(R.id.newUserButton);
-        login = findViewById(R.id.login);
+        login = findViewById(R.id.log_in);
         userId = findViewById(R.id.userId);
         password = findViewById(R.id.password);
         forgotPassword = findViewById(R.id.forgotPassword);

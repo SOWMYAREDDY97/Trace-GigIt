@@ -110,7 +110,7 @@ public class SignUpActivity extends Activity {
                     sing_up_user.setUsername(userFullname.getText().toString());
                     sing_up_user.put(Constants.SHOP_NAME, shopName.getText().toString());
                     sing_up_user.put(Constants.SHOP_ADDRESS, shopAddress.getText().toString());
-                    sing_up_user.put(Constants.SHOP_ADDRESS, shopAddress.getText().toString());
+                    sing_up_user.put(Constants.SHOP_PHONE, shopNumber.getText().toString());
                     sing_up_user.put(Constants.USER_TYPE, isOwner);
 
                     //sing_up_user.put("Mobile",(mobile.getText().toString()));

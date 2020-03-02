@@ -187,7 +187,7 @@
         app:layout_constraintVertical_bias="0.635" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/item_one_name"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:ems="10"
@@ -200,7 +200,7 @@
         app:layout_constraintVertical_bias="0.241" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/item_one_cost"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:ems="10"
@@ -213,7 +213,7 @@
         app:layout_constraintVertical_bias="0.241" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/item_two_name"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:ems="10"
@@ -226,7 +226,7 @@
         app:layout_constraintVertical_bias="0.39" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/item_two_cost"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:ems="10"
@@ -239,7 +239,7 @@
         app:layout_constraintVertical_bias="0.39" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/item_four_name"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:ems="10"
@@ -249,10 +249,11 @@
         app:layout_constraintHorizontal_bias="0.161"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.544" />
+        app:layout_constraintVertical_bias="0.717" />
+
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/item_three_cost"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:ems="10"
@@ -266,20 +267,20 @@
 
 
     <EditText
-        android:id="@+id/editText8"
+        android:id="@+id/item_three_name"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintHorizontal_bias="0.156"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.717" />
+        app:layout_constraintVertical_bias="0.543" />
 
     <EditText
-        android:id="@+id/editText9"
+        android:id="@+id/item_four_cost"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:ems="10"
@@ -292,7 +293,7 @@
         app:layout_constraintVertical_bias="0.717" />
 
     <Button
-        android:id="@+id/button14"
+        android:id="@+id/save_menu"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:text="Save"

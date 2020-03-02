@@ -1,5 +1,6 @@
 package com.traceandgigit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,6 +22,8 @@ public class ContactUsActivity extends AppCompatActivity {
     public Button send;
 
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,7 @@ public class ContactUsActivity extends AppCompatActivity {
         from = findViewById(R.id.user_email);
         message = findViewById(R.id.message_body);
         send = findViewById(R.id.sen_mail);
+
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,19 +47,17 @@ public class ContactUsActivity extends AppCompatActivity {
                                 message.getText().toString());
 
                         Toast.makeText(getApplicationContext(),"Sending mail...", Toast.LENGTH_SHORT).show();
+
+
                     }
                 });
-
             }
         });
 
-        send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
 
-    });
+
+
     }
 
 

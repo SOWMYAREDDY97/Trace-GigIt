@@ -29,7 +29,7 @@ public class menulist extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menulist);
-        parentLinearLayout = (LinearLayout) findViewById(R.id.parent_linear_layout);
+        //parentLinearLayout = (LinearLayout) findViewById(R.id.parent_linear_layout);
 
         item_1_name = findViewById(R.id.item_one_name);
         item_1_cost = findViewById(R.id.item_one_cost);
@@ -51,6 +51,7 @@ public class menulist extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final ParseObject menu = new ParseObject("menu");
+                menu.put("user_object_name", object_id);
                 menu.put("item_1_name", item_1_name.getText().toString());
                 menu.put("item_1_cost",item_1_name.getText().toString());
                 menu.put("item_2_name",item_2_name.getText().toString());
@@ -63,7 +64,7 @@ public class menulist extends AppCompatActivity {
                     @Override
                     public void done(ParseException e) {
                         if (e==null){
-                            Intent ini = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent ini = new Intent(getApplicationContext(), OwnerActivity.class);
                             startActivity(ini);
                             Toast.makeText(menulist.this, "menu details added successfully", Toast.LENGTH_SHORT).show();
                         }

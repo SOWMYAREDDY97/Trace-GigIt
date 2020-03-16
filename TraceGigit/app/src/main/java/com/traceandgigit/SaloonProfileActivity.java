@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -42,6 +43,7 @@ public class SaloonProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_saloon_profile);
         mProgressDialog = new ProgressDialog(this);
         Button saveButton = findViewById(R.id.saveButton);
+        Button cancelButton = findViewById(R.id.cancelButton);
         TextView uploadTextView = findViewById(R.id.uploadPicture);
         imagePlaceHolder = findViewById(R.id.profilePic);
         saloonName = findViewById(R.id.saloonName);
@@ -94,6 +96,39 @@ public class SaloonProfileActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String updated_email = saloonEmailID.getText().toString();
+                String updated_username = saloonName.getText().toString();
+                ParseUser user = ParseUser.getCurrentUser();
+                user.setUsername(updated_username);
+                user.setEmail(updated_email);
+                user.put("Mobile", saloonNumber.getText().toString());
+                user.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e==null){
+                            Toast.makeText(SaloonProfileActivity.this, "succefully updated details", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(SaloonProfileActivity.this, "unable to updated details " + e, Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+
+                if (!isLocationDetected) {
+                    getGPSLocation();
+                }else{
+                    Intent intent = new Intent(SaloonProfileActivity.this,OwnerActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 if (!isLocationDetected) {
                     getGPSLocation();
                 }else{

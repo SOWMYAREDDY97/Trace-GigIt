@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.parse.ParseUser;
 
 public class OwnerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -54,6 +55,20 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
         }else if(id == R.id.settings){
             Intent ini = new Intent(this, SettingsScreen.class);
             startActivity(ini);
+        }else if(id == R.id.home){
+            Intent ini = new Intent(this, OwnerActivity.class);
+            startActivity(ini);
+        }
+
+        else if(id == R.id.contactus){
+            Intent ini = new Intent(this,ContactUsActivity.class);
+            startActivity(ini);
+        }
+        else if(id == R.id.logout){
+            ParseUser.logOut();
+            Intent ini = new Intent(this,SignInActivity.class);
+            startActivity(ini);
+            finish();
         }
         return false;
     }

@@ -12,13 +12,19 @@ import com.parse.ParseUser;
 
 public class SettingsScreen extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_screen);
+
+        TextView setting_screen = findViewById(R.id.setting_user_name);
         TextView customerType = findViewById(R.id.customerType);
+
         ParseUser user = ApplicationController.getCurrentUser(this);
         if(user != null){
+            customerType.setText(user.getUsername());
             if(user.get(Constants.USER_TYPE) != null){
                 if(user.getBoolean(Constants.USER_TYPE)){
                     customerType.setText("Owner");

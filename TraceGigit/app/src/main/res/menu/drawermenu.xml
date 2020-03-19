@@ -2,7 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home"
+        android:clickable="true"
         android:title="Home" />
+
     <item
         android:id="@+id/profile_edit"
         android:clickable="true"
@@ -11,17 +13,28 @@
 
     <item
         android:id="@+id/menuupload"
+        android:clickable="true"
         android:title="Menu Upload" />
 
-    <item android:id="@+id/notifications" android:title="Notifications" />
+    <item android:id="@+id/notifications"
+        android:clickable="true"
+        android:title="Notifications" />
 
 
     <item
         android:id="@+id/settings"
+        android:clickable="true"
         android:title="Settings" />
 
     <item
+        android:id="@+id/contactus"
+        android:clickable="true"
+        android:title="Contact" />
+
+
+    <item
         android:id="@+id/logout"
+        android:clickable="true"
         android:title="Logout" />
 
 

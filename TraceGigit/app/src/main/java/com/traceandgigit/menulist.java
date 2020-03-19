@@ -12,8 +12,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 public class menulist extends AppCompatActivity {
@@ -31,19 +33,40 @@ public class menulist extends AppCompatActivity {
         setContentView(R.layout.activity_menulist);
         //parentLinearLayout = (LinearLayout) findViewById(R.id.parent_linear_layout);
 
-        item_1_name = findViewById(R.id.item_one_name);
-        item_1_cost = findViewById(R.id.item_one_cost);
-        item_2_name = findViewById(R.id.item_two_name);
-        item_2_cost = findViewById(R.id.item_two_cost);
-        item_3_name = findViewById(R.id.item_three_name);
-        item_3_cost = findViewById(R.id.item_three_cost);
-        item_4_name = findViewById(R.id.item_four_name);
-        item_4_cost = findViewById(R.id.item_four_cost);
-        save = findViewById(R.id.save_menu);
-        object_id = SignInActivity.object_id;
-        if (object_id == null){
-            object_id = SignUpActivity.object_id;
-        }
+                    item_1_name = findViewById(R.id.item_one_name);
+                    item_1_cost = findViewById(R.id.item_one_cost);
+                    item_2_name = findViewById(R.id.item_two_name);
+                    item_2_cost = findViewById(R.id.item_two_cost);
+                    item_3_name = findViewById(R.id.item_three_name);
+                    item_3_cost = findViewById(R.id.item_three_cost);
+                    item_4_name = findViewById(R.id.item_four_name);
+                    item_4_cost = findViewById(R.id.item_four_cost);
+                    save = findViewById(R.id.save_menu);
+                    object_id = SignInActivity.object_id;
+                    if (object_id == null){
+                        object_id = SignUpActivity.object_id;
+                    }
+
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("menu");
+                    query.whereEqualTo("user_object_name", object_id);
+                    query.getFirstInBackground(new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, ParseException e) {
+                            if (e == null) {
+                                item_1_name.setText(object.getString("item_1_name"));
+                                item_1_cost.setText(object.getString("item_1_cost"));
+                                item_2_name.setText(object.getString("item_2_name"));
+                                item_2_cost.setText(object.getString("item_2_cost"));
+                                item_3_name.setText(object.getString("item_3_name"));
+                                item_3_cost.setText(object.getString("item_3_cost"));
+                                item_4_name.setText(object.getString("item_4_name"));
+                                item_4_cost.setText(object.getString("item_4_cost"));
+
+                } else {
+                                Toast.makeText(menulist.this, "unable to get menu details " + e, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
 
 

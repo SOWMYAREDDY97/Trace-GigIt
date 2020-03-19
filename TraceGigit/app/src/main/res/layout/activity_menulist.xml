@@ -70,37 +70,37 @@
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_width="201dp"
+        android:layout_height="40dp"
         android:text="Item"
         android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintHorizontal_bias="0.139"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.164" />
+        app:layout_constraintVertical_bias="0.138" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:inputType="number"
         android:text="$"
         android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintHorizontal_bias="0.831"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.164" />
+        app:layout_constraintVertical_bias="0.137" />
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_width="191dp"
+        android:layout_height="40dp"
         android:text="Item"
         android:textSize="18sp"
         android:textStyle="normal"
@@ -114,7 +114,7 @@
     <TextView
         android:id="@+id/textView12"
         android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:inputType="number"
         android:text="$"
         android:textSize="18sp"
@@ -129,8 +129,8 @@
 
     <TextView
         android:id="@+id/textView13"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_width="185dp"
+        android:layout_height="40dp"
         android:text="Item"
         android:textSize="18sp"
         android:textStyle="normal"
@@ -144,7 +144,7 @@
     <TextView
         android:id="@+id/textView14"
         android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:inputType="number"
         android:text="$"
         android:textSize="18sp"
@@ -159,8 +159,8 @@
 
     <TextView
         android:id="@+id/textView15"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_width="181dp"
+        android:layout_height="40dp"
         android:text="Item"
         android:textSize="18sp"
         android:textStyle="normal"
@@ -174,7 +174,7 @@
     <TextView
         android:id="@+id/textView16"
         android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:inputType="number"
         android:text="$"
         android:textSize="18sp"
@@ -188,34 +188,34 @@
 
     <EditText
         android:id="@+id/item_one_name"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_width="204dp"
+        android:layout_height="45dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.241" />
+        app:layout_constraintVertical_bias="0.225" />
 
     <EditText
         android:id="@+id/item_one_cost"
         android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_height="45dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintHorizontal_bias="0.827"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.241" />
+        app:layout_constraintVertical_bias="0.224" />
 
     <EditText
         android:id="@+id/item_two_name"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_width="191dp"
+        android:layout_height="45dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -228,7 +228,7 @@
     <EditText
         android:id="@+id/item_two_cost"
         android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_height="45dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -240,8 +240,8 @@
 
     <EditText
         android:id="@+id/item_four_name"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_width="181dp"
+        android:layout_height="45dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -255,7 +255,7 @@
     <EditText
         android:id="@+id/item_three_cost"
         android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_height="45dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -268,8 +268,8 @@
 
     <EditText
         android:id="@+id/item_three_name"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_width="187dp"
+        android:layout_height="45dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -282,7 +282,7 @@
     <EditText
         android:id="@+id/item_four_cost"
         android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_height="45dp"
          android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -294,8 +294,8 @@
 
     <Button
         android:id="@+id/save_menu"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_width="95dp"
+        android:layout_height="47dp"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

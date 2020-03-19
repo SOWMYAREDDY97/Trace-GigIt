@@ -8,19 +8,22 @@
         android:clickable="true"
         android:title="Profile" />
 
-
-
-
     <item android:id="@+id/notifications"
+        android:clickable="true"
         android:title="Notifications" />
-
 
     <item
         android:id="@+id/settings"
+        android:clickable="true"
         android:title="Settings" />
     <item
         android:id="@+id/contactus"
+        android:clickable="true"
         android:title="Contact Us" />
+    <item
+        android:id="@+id/logout"
+        android:clickable="true"
+        android:title="Logout" />
 
 
 

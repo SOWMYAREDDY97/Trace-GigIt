@@ -56,13 +56,14 @@
                 android:layout_height="40dp"/>
 
             <TextView
-                android:text="User Name"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginStart="32dp"
+                android:id="@+id/setting_user_name"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"/>
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:gravity="center"
+                android:text="User Name"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -163,13 +164,14 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/delete_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
             android:text="Delete My Account"
             android:textColor="@color/light_grey"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingStart="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

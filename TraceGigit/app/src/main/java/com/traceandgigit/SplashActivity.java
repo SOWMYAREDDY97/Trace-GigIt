@@ -128,7 +128,7 @@ public class SplashActivity extends Activity {
                 }
             }
         };
-        handler.postDelayed(r, 2500);
+        handler.postDelayed(r, 3000);
     }
 
     private void launchSignInActivity(){

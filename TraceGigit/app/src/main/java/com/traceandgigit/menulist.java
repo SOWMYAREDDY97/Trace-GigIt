@@ -73,30 +73,59 @@ public class menulist extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ParseObject menu = new ParseObject("menu");
-                menu.put("user_object_name", object_id);
-                menu.put("item_1_name", item_1_name.getText().toString());
-                menu.put("item_1_cost",item_1_name.getText().toString());
-                menu.put("item_2_name",item_2_name.getText().toString());
-                menu.put("item_2_cost",item_2_cost.getText().toString());
-                menu.put("item_3_name",item_3_name.getText().toString());
-                menu.put("item_3_cost",item_3_cost.getText().toString());
-                menu.put("item_4_name",item_4_name.getText().toString());
-                menu.put("item_4_cost",item_4_cost.getText().toString());
-                menu.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e==null){
+
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("menu");
+                query.whereEqualTo("user_object_name", object_id);
+                query.getFirstInBackground(new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, ParseException e) {
+                        if (e == null) {
+
+                            object.put("item_1_name", item_1_name.getText().toString());
+                            object.put("item_1_cost", item_1_cost.getText().toString());
+                            object.put("item_2_name", item_2_name.getText().toString());
+                            object.put("item_2_cost", item_2_cost.getText().toString());
+                            object.put("item_3_name", item_3_name.getText().toString());
+                            object.put("item_3_cost", item_3_cost.getText().toString());
+                            object.put("item_4_name", item_4_name.getText().toString());
+                            object.put("item_4_cost", item_4_cost.getText().toString());
+                            object.saveInBackground();
                             Intent ini = new Intent(getApplicationContext(), OwnerActivity.class);
                             startActivity(ini);
-                            Toast.makeText(menulist.this, "menu details added successfully", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Toast.makeText(menulist.this, "unable to add menu details " + e, Toast.LENGTH_SHORT).show();
-                        }
+                            Toast.makeText(menulist.this, "menu details updated successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            final ParseObject menu = new ParseObject("menu");
+                            menu.put("user_object_name", object_id);
+                            menu.put("item_1_name", item_1_name.getText().toString());
+                            menu.put("item_1_cost",item_1_name.getText().toString());
+                            menu.put("item_2_name",item_2_name.getText().toString());
+                            menu.put("item_2_cost",item_2_cost.getText().toString());
+                            menu.put("item_3_name",item_3_name.getText().toString());
+                            menu.put("item_3_cost",item_3_cost.getText().toString());
+                            menu.put("item_4_name",item_4_name.getText().toString());
+                            menu.put("item_4_cost",item_4_cost.getText().toString());
+                            menu.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e==null){
+                                        Intent ini = new Intent(getApplicationContext(), OwnerActivity.class);
+                                        startActivity(ini);
+                                        Toast.makeText(menulist.this, "menu details added successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        Toast.makeText(menulist.this, "unable to add menu details " + e, Toast.LENGTH_SHORT).show();
+                                    }
 
+                                }
+                            });
+                        }
                     }
                 });
+
+
+
+
+
             }
         });
 

@@ -73,10 +73,18 @@ public class SignInActivity extends Activity {
                         @Override
                         public void done(ParseUser parseUser, ParseException e) {
                             if (parseUser != null) {
-                                dlg.dismiss();
-                                alertDisplayer("Sucessful Login","Welcome back " + userId.getText().toString() + "!",parseUser.getBoolean(Constants.USER_TYPE));
+                                boolean deatcivate_status = parseUser.getBoolean("deactivate_account");
+                                if (deatcivate_status == true) {
+                                    dlg.dismiss();
+                                    alertDisplayer("Sucessful Login", "Welcome back " + userId.getText().toString() + "!", parseUser.getBoolean(Constants.USER_TYPE));
 
-                                object_id = parseUser.getObjectId();
+                                    object_id = parseUser.getObjectId();
+                                }
+                                else {
+                                    dlg.dismiss();
+                                    ParseUser.logOut();
+                                    Toast.makeText(SignInActivity.this, "you deactivated your account", Toast.LENGTH_LONG).show();
+                                }
 
                             } else {
                                 dlg.dismiss();

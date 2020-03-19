@@ -58,7 +58,7 @@
             android:layout_marginLeft="36dp"
             android:layout_marginRight="36dp"
             android:background="@drawable/rounded_corners"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@android:color/white"
             android:cursorVisible="true"
             android:textColor="@color/colorAccent" />
 
@@ -81,7 +81,7 @@
             android:layout_marginLeft="36dp"
             android:layout_marginRight="36dp"
             android:background="@drawable/rounded_corners"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="?attr/colorBackgroundFloating"
             android:inputType="textPassword"
             android:textColor="@color/colorAccent" />
 

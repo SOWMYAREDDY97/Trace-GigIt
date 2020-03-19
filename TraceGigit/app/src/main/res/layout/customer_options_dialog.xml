@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:background="@drawable/background_color_circle_selector"
-    android:backgroundTint="@color/colorPrimary"
+    android:backgroundTint="#0CC2B0"
     android:orientation="vertical"
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
@@ -21,16 +21,16 @@
             android:layout_height="90dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:background="@android:color/black"
+            android:background="@android:color/background_light"
             android:padding="12dp"
-            android:src="@drawable/menu" />
+            android:src="@drawable/menuicon" />
 
         <ImageView
             android:id="@+id/saloonSchedule"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_marginLeft="12dp"
-            android:background="@android:color/black"
+            android:background="@android:color/background_light"
             android:padding="6dp"
             android:src="@drawable/calendar" />
 
@@ -49,18 +49,18 @@
             android:layout_height="90dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:background="@android:color/black"
+            android:background="@android:color/background_light"
             android:padding="6dp"
-            android:src="@drawable/location" />
+            android:src="@drawable/gps" />
 
         <ImageView
             android:id="@+id/saloonSearch"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_marginLeft="12dp"
-            android:background="@android:color/black"
+            android:background="@android:color/background_light"
             android:padding="6dp"
-            android:src="@drawable/app_logo" />
+            android:src="@drawable/booking" />
     </LinearLayout>
 
 

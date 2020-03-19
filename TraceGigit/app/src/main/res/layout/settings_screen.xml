@@ -1,67 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/dark_grey"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/toolBarLayout"
-        android:layout_marginTop="36dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="36dp">
 
         <ImageView
-            android:src="@drawable/app_logo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
-
-        <TextView
-            android:text="Settings"
-            android:textSize="18sp"
-            android:layout_centerInParent="true"
-            android:padding="8dp"
-            android:textColor="@android:color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:src="@drawable/ic_launcher_background"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            />
+            android:src="@drawable/app_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="8dp"
+            android:text="Settings"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp" />
+
     </RelativeLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:orientation="vertical"
         android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:paddingEnd="24dp">
 
         <LinearLayout
-            android:padding="12dp"
-            android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:padding="12dp">
 
             <ImageView
-                android:src="@drawable/app_logo"
                 android:layout_width="40dp"
-                android:layout_height="40dp"/>
+                android:layout_height="40dp"
+                android:src="@drawable/app_logo" />
 
             <TextView
                 android:id="@+id/setting_user_name"
-                android:layout_width="wrap_content"
+                android:layout_width="151dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="32dp"
                 android:gravity="center"
                 android:text="User Name"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -69,99 +64,101 @@
         </LinearLayout>
 
         <View
-            android:background="@android:color/black"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
 
         <LinearLayout
-            android:padding="12dp"
-            android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:padding="12dp">
 
             <TextView
-                android:text="Account Type"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginStart="32dp"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"/>
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:gravity="center"
+                android:text="Account Type"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
 
             <TextView
                 android:id="@+id/customerType"
-                android:text="Customer"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="12dp"
-                android:background="@drawable/rounded_corners"
-                android:layout_marginStart="64dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:background="@drawable/rounded_corners"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Customer"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
 
     <TextView
-        android:text="Notifications"
-        android:layout_marginTop="24dp"
-        android:textColor="@color/light_grey"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:paddingStart="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:paddingStart="16dp"
+        android:text="Notifications"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <RelativeLayout
-        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:padding="16dp">
 
         <TextView
-            android:text="Appointments"
-            android:textColor="@color/light_grey"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingStart="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:text="Appointments"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Switch
-            android:layout_alignParentEnd="true"
-            android:checked="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:checked="true" />
 
     </RelativeLayout>
 
 
     <TextView
-        android:text="Account Settings"
-        android:layout_marginTop="24dp"
-        android:textColor="@color/light_grey"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:paddingStart="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:paddingStart="16dp"
+        android:text="Account Settings"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <RelativeLayout
-        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/delete_account"
@@ -169,41 +166,41 @@
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             android:text="Delete My Account"
-            android:textColor="@color/light_grey"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
 
     <TextView
-        android:text="Help"
-        android:layout_marginTop="24dp"
-        android:textColor="@color/light_grey"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:paddingStart="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:paddingStart="16dp"
+        android:text="Help"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <RelativeLayout
-        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/contactus"
-            android:text="Contact Us"
-            android:textColor="@color/light_grey"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingStart="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:text="Contact Us"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>

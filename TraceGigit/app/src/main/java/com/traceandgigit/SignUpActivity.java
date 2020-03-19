@@ -138,7 +138,7 @@ public class SignUpActivity extends Activity {
                     Intent intent = null;
                     if (!isOwner) {
                         SystemClock.sleep(7000);
-                        intent = new Intent(SignUpActivity.this, MainActivity.class);
+                        intent = new Intent(SignUpActivity.this, CustomerProfileActivity.class);
                     }else{
                         SystemClock.sleep(7000);
                         intent = new Intent(SignUpActivity.this, SaloonProfileActivity.class);

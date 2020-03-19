@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_grey">
+    android:background="@drawable/gradient">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -19,32 +19,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="36dp"
-        android:src="@android:drawable/ic_popup_reminder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="109dp"
+        android:layout_height="29dp"
         android:layout_marginTop="37dp"
         android:layout_marginBottom="44dp"
         android:text="Contact"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorAccent"
         android:textSize="21sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.272" />
+        app:layout_constraintVertical_bias="0.36" />
 
     <TextView
         android:id="@+id/textView2"
@@ -56,7 +47,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:text="Trace &amp; Gigit"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +66,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:text="Email Address"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorAccent"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +81,7 @@
         android:layout_height="42dp"
         android:maxLines="2"
         android:text="Contact Us @"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorAccent"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,12 +95,13 @@
         android:layout_width="220dp"
         android:layout_height="38dp"
         android:layout_marginStart="64dp"
-        android:background="@android:color/darker_gray"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@android:color/background_light"
         android:gravity="center"
         android:paddingStart="16dp"
         android:paddingEnd="22dp"
         android:text="6605280981"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -130,6 +122,7 @@
         android:id="@+id/sen_mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners"
         android:text="Send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -143,6 +136,7 @@
         android:layout_width="192dp"
         android:layout_height="43dp"
         android:text="Send Your Queries"
+        android:textColor="@color/colorAccent"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -154,11 +148,14 @@
 
     <EditText
         android:id="@+id/message_body"
-        android:layout_width="332dp"
-        android:layout_height="60dp"
+        android:layout_width="331dp"
+        android:layout_height="79dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@android:color/background_light"
         android:ems="10"
         android:hint="Type Message Here To Reach Us."
         android:inputType="textPersonName"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
@@ -168,11 +165,14 @@
 
     <EditText
         android:id="@+id/user_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="215dp"
+        android:layout_height="49dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@android:color/background_light"
         android:ems="10"
         android:hint="Enter Email"
         android:inputType="textPersonName"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.848"

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
+    android:background="@drawable/gradient"
     android:orientation="vertical"
     tools:context=".menulist">
     <!--    <TextView -->
@@ -283,7 +284,7 @@
         android:id="@+id/item_four_cost"
         android:layout_width="100dp"
         android:layout_height="45dp"
-         android:ems="10"
+        android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -296,6 +297,7 @@
         android:id="@+id/save_menu"
         android:layout_width="95dp"
         android:layout_height="47dp"
+        android:background="@drawable/rounded_corners"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

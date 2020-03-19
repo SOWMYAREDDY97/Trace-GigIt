@@ -98,11 +98,11 @@ public class SaloonProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String updated_email = saloonEmailID.getText().toString();
-                String updated_username = saloonName.getText().toString();
+                String updated_saloonname = saloonName.getText().toString();
                 ParseUser user = ParseUser.getCurrentUser();
-                user.setUsername(updated_username);
                 user.setEmail(updated_email);
-                user.put("Mobile", saloonNumber.getText().toString());
+                user.put("shop_phone", saloonNumber.getText().toString());
+                user.put("shop_name", updated_saloonname);
                 user.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {

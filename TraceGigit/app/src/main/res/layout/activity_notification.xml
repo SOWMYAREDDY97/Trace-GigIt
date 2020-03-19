@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/gradient"
     tools:context=".notification">
 
     <ImageView
@@ -36,6 +36,7 @@
         android:id="@+id/textView2"
         android:layout_width="359dp"
         android:layout_height="112dp"
+        android:background="@color/colorPrimary"
         android:text="Your appointment for 10th feb 2020 has been scheduled"
         android:textColor="#000000"
         android:textSize="25sp"
@@ -50,6 +51,7 @@
         android:id="@+id/textView3"
         android:layout_width="351dp"
         android:layout_height="95dp"
+        android:background="@color/colorPrimary"
         android:text="Your appointment for 10th feb 2020 has been put on hold"
         android:textColor="#000000"
         android:textSize="25sp"
@@ -63,6 +65,7 @@
         android:id="@+id/textView4"
         android:layout_width="360dp"
         android:layout_height="86dp"
+        android:background="@color/colorPrimary"
         android:text="Your appointment for 10th feb 2020 has been registered to schedule"
         android:textColor="#000000"
         android:textSize="25sp"

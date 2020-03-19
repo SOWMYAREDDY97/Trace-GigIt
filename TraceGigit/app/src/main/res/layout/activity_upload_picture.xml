@@ -7,7 +7,8 @@
     <ImageView
         android:id="@+id/imagePlaceHolder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient" />
 
 
     <LinearLayout
@@ -20,18 +21,22 @@
 
         <Button
             android:id="@+id/uploadPicture"
-            android:text="Upload Picture"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/rounded_corners"
+            android:text="Upload Picture"
+            android:textColor="@color/colorAccent" />
 
 
         <Button
             android:id="@+id/takePicture"
-            android:text="Take Picture"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/rounded_corners"
+            android:text="Take Picture"
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
 
 </RelativeLayout>

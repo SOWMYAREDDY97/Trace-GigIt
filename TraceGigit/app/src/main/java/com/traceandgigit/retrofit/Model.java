@@ -23,18 +23,7 @@ public class Model {
 
     private void loadModel() {
 
-        Lyrics listlyr = new Lyrics("she");
-        lyricsList.add(listlyr);
-        listlyr = new Lyrics("he");
-        lyricsList.add(listlyr);
-        listlyr = new Lyrics("loves you");
-        lyricsList.add(listlyr);
-        listlyr = new Lyrics("Yeah, yeah, yeah");
-        lyricsList.add(listlyr);
-        listlyr = new Lyrics("you know");
-        lyricsList.add(listlyr);
-        listlyr = new Lyrics("should be");
-        lyricsList.add(listlyr);
+
     }
 
     public static class Lyrics {

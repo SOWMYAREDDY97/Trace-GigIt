@@ -19,4 +19,17 @@
         </activity>
     </application>
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <meta-data
+        android:name="com.parse.SERVER_URL"
+        android:value="@string/serverUrl" />
+    <meta-data
+        android:name="com.parse.APPLICATION_ID"
+        android:value="@string/appID" />
+    <meta-data
+        android:name="com.parse.CLIENT_KEY"
+        android:value="@string/clientKey" />
+
+
 </manifest>

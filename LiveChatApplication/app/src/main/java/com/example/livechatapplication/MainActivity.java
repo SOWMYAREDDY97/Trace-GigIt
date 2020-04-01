@@ -12,25 +12,68 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
+
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private Model mod;
     private SecondActivity lyricsecond = null;
     private RecyclerView lyricRec = null;
+    private Handler mHandler;
+    TextView addLyricText;
 
+    public Runnable onEveryTimeInterval = new Runnable() {
+        @Override
+        public void run() {
+            mHandler.postDelayed(onEveryTimeInterval,1000);
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("livechat");
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+
+                    for(int i= 0; i< objects.size();i++){
+                        ParseObject user = objects.get(i);
+                        if (addLyricText != null) {
+                            addLyricText.setText(addLyricText.getText().toString()+"-------------------------------\n"+user.get("message"));
+                        }
+
+                    }
+
+
+                }
+            });
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId(getString(R.string.appID))
+                // if defined
+                .clientKey(getString(R.string.clientKey))
+                .server(getString(R.string.serverUrl))
+                .build()
+        );
         setContentView(R.layout.activity_main);
-
-
-
+        mHandler = new Handler();
+        addLyricText = findViewById(R.id.addLyricText);
         mod = Model.getModel();
 
         lyricsecond = new SecondActivity(mod);
@@ -64,34 +107,53 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        SelectionTracker.Builder build = new SelectionTracker.Builder<>("planet-selection-id",
-                lyricRec,
-                new StableIdKeyProvider(lyricRec),
-                new LyricDetailsLookup(lyricRec),
-                StorageStrategy.createLongStorage());
-        build.withOnItemActivatedListener(new OnItemActivatedListener() {
-            @Override
-            public boolean onItemActivated(@NonNull ItemDetailsLookup.ItemDetails item,
-                                           @NonNull MotionEvent e) {
-
-                TextView displayTV = findViewById(R.id.addLyricText);
-                Model.Lyrics selected = mod.lyricsList.get(item.getPosition());
-                displayTV.setText(displayTV.getText().toString()+" " + selected.word);
-                return false;
-            }
-        });
-        SelectionTracker t = build.build();
+//        SelectionTracker.Builder build = new SelectionTracker.Builder<>("planet-selection-id",
+//                lyricRec,
+//                new StableIdKeyProvider(lyricRec),
+//                new LyricDetailsLookup(lyricRec),
+//                StorageStrategy.createLongStorage());
+//        build.withOnItemActivatedListener(new OnItemActivatedListener() {
+//            @Override
+//            public boolean onItemActivated(@NonNull ItemDetailsLookup.ItemDetails item,
+//                                           @NonNull MotionEvent e) {
+//
+//                TextView displayTV = findViewById(R.id.addLyricText);
+//                Model.Lyrics selected = mod.lyricsList.get(item.getPosition());
+//
+//                displayTV.setText(displayTV.getText().toString()+" " + selected.word);
+//                return false;
+//            }
+//        });
+//        SelectionTracker t = build.build();
 
         Button addBTN=findViewById(R.id.addButton);
+        mHandler.postDelayed(onEveryTimeInterval,1000);
 
         addBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText wordsEditText = findViewById(R.id.wordsEditText);
-                TextView addLyricText = findViewById(R.id.addLyricText);
+
+                final EditText wordsEditText = findViewById(R.id.wordsEditText);
+
                 EditText temp = findViewById(R.id.wordsEditText);
 
-                addLyricText.setText(addLyricText.getText().toString()+" "+wordsEditText.getText().toString());
+                final ParseObject livechat = new ParseObject("livechat");
+                livechat.put("message", wordsEditText.getText().toString());
+
+                livechat.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e==null){
+                            addLyricText.setText(addLyricText.getText().toString()+"-------------------------------\n"+wordsEditText.getText().toString());
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this, "unable to add menu details " + e, Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+
             }
         });
 

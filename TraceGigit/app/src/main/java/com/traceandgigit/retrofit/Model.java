@@ -1,21 +1,23 @@
 package com.traceandgigit.retrofit;
 
+
+
 import java.util.ArrayList;
 
-public class LiveChatModel {
+public class Model {
 
-    private static LiveChatModel theModel = null;
+    private static Model theModel = null;
 
     public ArrayList<Lyrics> lyricsList;
 
-    private LiveChatModel() {
+    private Model() {
         lyricsList = new ArrayList<Lyrics>();
         loadModel();
     }
 
-    public static LiveChatModel getModel() {
+    public static Model getModel() {
         if (theModel == null)
-            theModel = new LiveChatModel();
+            theModel = new Model();
         return theModel;
     }
 

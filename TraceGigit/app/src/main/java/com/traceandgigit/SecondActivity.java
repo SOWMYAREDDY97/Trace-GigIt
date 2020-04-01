@@ -1,5 +1,6 @@
 package com.traceandgigit;
 
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -11,12 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.selection.ItemDetailsLookup;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.traceandgigit.retrofit.LiveChatModel;
+import com.traceandgigit.retrofit.Model;
 
 public class SecondActivity extends RecyclerView.Adapter<SecondActivity.LViewHolder> {
-    private LiveChatModel mel;
+    private Model mel;
 
-    public SecondActivity(LiveChatModel model) {
+    public SecondActivity(Model model) {
         super();
         this.mel = model;
     }
@@ -73,5 +74,4 @@ public class SecondActivity extends RecyclerView.Adapter<SecondActivity.LViewHol
             };
         }
     }
-
 }

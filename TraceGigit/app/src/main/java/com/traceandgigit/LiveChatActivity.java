@@ -1,19 +1,6 @@
 package com.traceandgigit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.selection.ItemDetailsLookup;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.traceandgigit.retrofit.LiveChatModel;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.selection.ItemDetailsLookup;
@@ -31,16 +18,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.traceandgigit.retrofit.Model;
+
 public class LiveChatActivity extends AppCompatActivity {
-    private LiveChatModel mod;
-     private SecondActivity lyricsecond = null;
+
+    private Model mod;
+    private SecondActivity lyricsecond = null;
     private RecyclerView lyricRec = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_live_chat);
+        setContentView(R.layout.activity_main);
 
-        mod = LiveChatModel.getModel();
+
+
+        mod = Model.getModel();
 
         lyricsecond = new SecondActivity(mod);
 
@@ -84,13 +77,25 @@ public class LiveChatActivity extends AppCompatActivity {
                                            @NonNull MotionEvent e) {
 
                 TextView displayTV = findViewById(R.id.addLyricText);
-                LiveChatModel.Lyrics selected = mod.lyricsList.get(item.getPosition());
+                Model.Lyrics selected = mod.lyricsList.get(item.getPosition());
                 displayTV.setText(displayTV.getText().toString()+" " + selected.word);
                 return false;
             }
         });
         SelectionTracker t = build.build();
 
+        Button addBTN=findViewById(R.id.addButton);
+        Button deletetext = findViewById(R.id.resetbtn);
+        addBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText wordsEditText = findViewById(R.id.wordsEditText);
+                TextView addLyricText = findViewById(R.id.addLyricText);
+                EditText temp = findViewById(R.id.wordsEditText);
+
+                addLyricText.setText(addLyricText.getText().toString()+" "+wordsEditText.getText().toString());
+            }
+        });
 
 
 

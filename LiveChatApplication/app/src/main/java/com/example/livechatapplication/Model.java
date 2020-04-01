@@ -23,7 +23,7 @@ public class Model {
 
     private void loadModel() {
 
-        
+
     }
 
     public static class Lyrics {

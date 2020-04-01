@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView lyricRec = null;
     private Handler mHandler;
     TextView addLyricText;
+    public int row_count = 0;
 
     public Runnable onEveryTimeInterval = new Runnable() {
         @Override
@@ -47,15 +48,25 @@ public class MainActivity extends AppCompatActivity {
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> objects, ParseException e) {
+                    if (row_count < objects.size()) {
+                        int temp = row_count;
+                        row_count = objects.size();
+                        for (int i = temp; i < objects.size(); i++) {
 
-                    for(int i= 0; i< objects.size();i++){
-                        ParseObject user = objects.get(i);
-                        if (addLyricText != null) {
-                            addLyricText.setText(addLyricText.getText().toString()+"-------------------------------\n"+user.get("message"));
+
+                            ParseObject user = objects.get(i);
+                            if (addLyricText != null) {
+                                if (user.get("user_object_id") != null) {
+                                    addLyricText.setText(addLyricText.getText().toString() + "\n-------------------------------\n User:-" + user.get("message"));
+                                }
+                                else{
+                                    addLyricText.setText(addLyricText.getText().toString() + "\n-------------------------------\n Admin:-" + user.get("message"));
+                                }
+                            }
+
+
                         }
-
                     }
-
 
                 }
             });
@@ -139,21 +150,29 @@ public class MainActivity extends AppCompatActivity {
 
                 final ParseObject livechat = new ParseObject("livechat");
                 livechat.put("message", wordsEditText.getText().toString());
+                if (wordsEditText.getText().toString().matches("")) {
+                    Toast.makeText(getApplicationContext(), "Please enter Message", Toast.LENGTH_LONG).show();
 
-                livechat.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e==null){
-                            addLyricText.setText(addLyricText.getText().toString()+"-------------------------------\n"+wordsEditText.getText().toString());
+                }
+                else {
+
+                    livechat.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null) {
+
+                                row_count = row_count + 1;
+                                addLyricText.setText(addLyricText.getText().toString() + "\n-------------------------------\n Admin :- " + wordsEditText.getText().toString());
+                                wordsEditText.getText().clear();
+
+                            } else {
+                                Toast.makeText(MainActivity.this, "unable to add menu details " + e, Toast.LENGTH_SHORT).show();
+                            }
+
                         }
-                        else{
-                            Toast.makeText(MainActivity.this, "unable to add menu details " + e, Toast.LENGTH_SHORT).show();
-                        }
+                    });
 
-                    }
-                });
-
-
+                }
             }
         });
 

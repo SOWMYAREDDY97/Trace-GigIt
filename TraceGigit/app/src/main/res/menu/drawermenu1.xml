@@ -21,6 +21,10 @@
         android:clickable="true"
         android:title="Contact Us" />
     <item
+        android:id="@+id/livechat"
+        android:clickable="true"
+        android:title="Live Chat" />
+    <item
         android:id="@+id/logout"
         android:clickable="true"
         android:title="Logout" />

@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
-
         mButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,12 +80,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
-
         gpsButton = findViewById(R.id.targetLocation);
         gpsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
         animFrame = findViewById(R.id.animFrame);
@@ -259,6 +256,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(ini);
         }else if(id == R.id.contactus){
             Intent ini = new Intent(this, ContactUsActivity.class);
+            startActivity(ini);
+        }
+        else if(id == R.id.livechat){
+            Intent ini = new Intent(this, LiveChatActivity.class);
             startActivity(ini);
         }
         else if(id == R.id.logout){

@@ -29,7 +29,7 @@ public class LiveChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_live_chat);
 
 
 
@@ -85,7 +85,7 @@ public class LiveChatActivity extends AppCompatActivity {
         SelectionTracker t = build.build();
 
         Button addBTN=findViewById(R.id.addButton);
-        Button deletetext = findViewById(R.id.resetbtn);
+       
         addBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

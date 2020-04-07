@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
     private Location location;
     private ProgressDialog mProgressDialog;
     private RecyclerView shopsRecyclerView;
+    private ImageView search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,14 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
         mProgressDialog = new ProgressDialog(this);
         getGPSLocation();
         shopsRecyclerView = findViewById(R.id.shopsRecyclerView);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentSearch = new Intent(MainActivity.this,searchFilter.class);
+                startActivity(intentSearch);
+
+            }
+        });
       /*  mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
         animFrame = findViewById(R.id.animFrame);
         Log.e("SCHEME", RetrofitClientInstance.BASE_SCHEME);
         Log.e("HOST", RetrofitClientInstance.BASE_HOST);*/
+
 
     }
 

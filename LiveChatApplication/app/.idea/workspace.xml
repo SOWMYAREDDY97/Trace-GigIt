@@ -7,9 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c44f3b5-f4b1-4c48-bcc7-43db72cb3748" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/livechatapplication/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/livechatapplication/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/livechatapplication/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/livechatapplication/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../TraceGigit/app/src/main/java/com/traceandgigit/LiveChatActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TraceGigit/app/src/main/java/com/traceandgigit/LiveChatActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TraceGigit/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TraceGigit/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TraceGigit/app/src/main/java/com/traceandgigit/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TraceGigit/app/src/main/java/com/traceandgigit/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TraceGigit/app/src/main/java/com/traceandgigit/searchFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TraceGigit/app/src/main/java/com/traceandgigit/searchFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TraceGigit/app/src/main/res/layout/activity_search_filter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TraceGigit/app/src/main/res/layout/activity_search_filter.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,7 +23,7 @@
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="2a0b596d0b3f7ece" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5_API_29" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -34,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/livechatapplication/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="174" column="17" selection-start-line="174" selection-start-column="17" selection-end-line="174" selection-end-column="17" />
+            <state relative-caret-position="412">
+              <caret line="173" lean-forward="true" selection-start-line="173" selection-end-line="173" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1302#2655#0" expanded="true" />
@@ -455,8 +457,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/livechatapplication/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="174" column="17" selection-start-line="174" selection-start-column="17" selection-end-line="174" selection-end-column="17" />
+        <state relative-caret-position="412">
+          <caret line="173" lean-forward="true" selection-start-line="173" selection-end-line="173" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1302#2655#0" expanded="true" />

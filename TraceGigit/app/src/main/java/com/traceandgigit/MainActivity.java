@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        search = findViewById(R.id.searchImage);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
         }
     }
 
-    private void addDataToRecyclerView(List<ParseUser> objects) {
+    public void addDataToRecyclerView(List<ParseUser> objects) {
         shopsRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         AdapterSaloons saloons = new AdapterSaloons(this, objects);
         saloons.setClickListener(mOnItemClickListener);

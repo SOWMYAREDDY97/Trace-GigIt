@@ -23,7 +23,7 @@
             android:layout_marginRight="12dp"
             android:background="@android:color/background_light"
             android:padding="12dp"
-            android:src="@drawable/menuicon" />
+            android:src="@android:drawable/ic_menu_sort_by_size" />
 
         <ImageView
             android:id="@+id/saloonSchedule"
@@ -62,6 +62,8 @@
             android:padding="6dp"
             android:src="@drawable/booking" />
     </LinearLayout>
+
+
 
 
 </LinearLayout>

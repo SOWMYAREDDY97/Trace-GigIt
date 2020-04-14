@@ -1,6 +1,9 @@
 package com.traceandgigit;
 
 import android.app.ProgressDialog;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,11 +15,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -30,15 +35,22 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.parse.FindCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.traceandgigit.services.CustomerNotificationService;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -46,13 +58,17 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements Serializable ,NavigationView.OnNavigationItemSelectedListener{
 
+    private static final int FETCH_BOOKINS_JOB_ID = 1;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private LocationManager locationManager;
     private Location location;
     private ProgressDialog mProgressDialog;
     private RecyclerView shopsRecyclerView;
-    private ImageView search;// declaring search as ImageView
+    private ImageView search;
+    private FrameLayout searchFrameLayout;
+    private ArrayDeque<SearchFragment> mFragmentStack = new ArrayDeque<>();
+    private SearchFragment mSearchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
         setContentView(R.layout.activity_main);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         search = findViewById(R.id.searchImage);
+        searchFrameLayout = findViewById(R.id.searchFrameLayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -72,11 +89,17 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentSearch = new Intent(MainActivity.this,searchFilter.class);
-                startActivity(intentSearch);
-
+                pushFragment();
             }
         });
+
+        JobScheduler jobScheduler =
+                (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        jobScheduler.schedule(new JobInfo.Builder(FETCH_BOOKINS_JOB_ID,
+                new ComponentName(this, CustomerNotificationService.class))
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setPeriodic(300)
+                .build());
       /*  mButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,15 +124,58 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
         Log.e("SCHEME", RetrofitClientInstance.BASE_SCHEME);
         Log.e("HOST", RetrofitClientInstance.BASE_HOST);*/
 
-
+    /*    Intent notificationIntent = new Intent(MainActivity.this, CustomerNotificationActivity.class);
+        Utils.showNotification(MainActivity.this,"Booking","Your Booking is successfully sent to Saloon. " +
+                "We will notify when your booking is acceted",notificationIntent);*/
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (searchFrameLayout != null && searchFrameLayout.getVisibility() == View.VISIBLE) {
+            searchFrameLayout.setVisibility(View.GONE);
+            removeFragment(mSearchFragment);
+        }
+    }
 
+    private void pushFragment() {
+        if (mSearchFragment == null) {
+            mSearchFragment = new SearchFragment();
+        }
+        if (searchFrameLayout != null) {
+            searchFrameLayout.setVisibility(View.VISIBLE);
+        }
+        try {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(android.R.id.content, mSearchFragment);
+            mFragmentStack.push(mSearchFragment);
+            transaction.addToBackStack(null);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            transaction.commitAllowingStateLoss();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeFragment(Fragment fragment) {
+        if (searchFrameLayout != null && searchFrameLayout.getVisibility() == View.VISIBLE) {
+            searchFrameLayout.setVisibility(View.GONE);
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.remove(fragment);
+        transaction.commitAllowingStateLoss();
+        if (mFragmentStack.size() == 1) {
+            mFragmentStack.pop();
+
+        }
+    }
 
     private void getGPSLocation() {
         showProgressDialog("Please Wait, we are fetching your Location...");
         FetchAddressService addressService = new FetchAddressService(this.getLocalClassName(), this);
-        Location gpsLocation = addressService.getLocation(LocationManager.NETWORK_PROVIDER);
+        Location gpsLocation = addressService.getLocation(LocationManager.PASSIVE_PROVIDER);
         double latitude = 0.0;
         double longitude = 0.0;
         if(gpsLocation != null){
@@ -170,6 +236,10 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
     }
 
     public void addDataToRecyclerView(List<ParseUser> objects) {
+        if(shopsRecyclerView == null){
+            shopsRecyclerView = findViewById(R.id.shopsRecyclerView);
+        }
+        removeFragment(mSearchFragment);
         shopsRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         AdapterSaloons saloons = new AdapterSaloons(this, objects);
         saloons.setClickListener(mOnItemClickListener);
@@ -288,6 +358,14 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
         @Override
         public void onItemClick(ParseUser user) {
             showDialogOfOptions(user);
+
+        }
+    };
+
+    private SaveCallback mSaveCallBack = new SaveCallback() {
+        @Override
+        public void done(ParseException e) {
+
         }
     };
 
@@ -337,6 +415,33 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
             @Override
             public void onClick(View v) {
 
+                Intent notificationIntent = new Intent(MainActivity.this, CustomerNotificationActivity.class);
+                if(TextUtils.isEmpty((String)user.get(Constants.BOOKING_AT_10))){
+                    user.put(Constants.BOOKING_AT_10,ParseUser.getCurrentUser().getObjectId());
+                    Utils.showNotification(MainActivity.this,"Booking","Your Booking is successfully sent to Saloon. " +
+                            "We will notify when your booking is acceted",notificationIntent);
+                    user.saveInBackground(mSaveCallBack);
+
+                } else if(TextUtils.isEmpty((String)user.get(Constants.BOOKING_AT_11))){
+                    Utils.showNotification(MainActivity.this,"Booking","Your Booking is successfully sent to Saloon. " +
+                            "We will notify when your booking is acceted",notificationIntent);
+                    user.put(Constants.BOOKING_AT_11,ParseUser.getCurrentUser().getObjectId());
+                    user.saveInBackground(mSaveCallBack);
+                }
+                else if(TextUtils.isEmpty((String)user.get(Constants.BOOKING_AT_12))){
+                    Utils.showNotification(MainActivity.this,"Booking","Your Booking is successfully sent to Saloon. " +
+                            "We will notify when your booking is acceted",notificationIntent);
+                    user.put(Constants.BOOKING_AT_12,ParseUser.getCurrentUser().getObjectId());
+                    user.saveInBackground(mSaveCallBack);
+                }
+                else if(TextUtils.isEmpty((String)user.get(Constants.BOOKING_AT_1))){
+                    Utils.showNotification(MainActivity.this,"Booking","Your Booking is successfully sent to Saloon. " +
+                            "We will notify when your booking is acceted",notificationIntent);
+                    user.put(Constants.BOOKING_AT_1,ParseUser.getCurrentUser().getObjectId());
+                    user.saveInBackground(mSaveCallBack);
+                }else{
+                    Toast.makeText(MainActivity.this,"Sorry No More booking slots available",Toast.LENGTH_LONG).show();
+                }
             }
         });
         builder.setView(v);

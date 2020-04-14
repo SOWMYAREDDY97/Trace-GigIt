@@ -21,4 +21,9 @@ public class Constants {
     public static final String LOCATION = "location";
     public static final String SESSION_TOKEN = "sessionToken";
     public static final String PROFILE_PIC = "profile_pic";
+    public static final String BOOKING_AT_10 = "booking_10";
+    public static final String BOOKING_AT_11 = "booking_11";
+    public static final String BOOKING_AT_12 = "bookings_12";
+    public static final String BOOKING_AT_1 = "bookings_1";
+    public static final String CUSTOMER_BOOKING = "customer_booking";
 }

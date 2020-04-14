@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
     private Location location;
     private ProgressDialog mProgressDialog;
     private RecyclerView shopsRecyclerView;
-    private ImageView search;
+    private ImageView search;// declaring search as ImageView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

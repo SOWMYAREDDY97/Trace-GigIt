@@ -97,7 +97,7 @@ public class menulist extends AppCompatActivity {
                             final ParseObject menu = new ParseObject("menu");
                             menu.put("user_object_name", object_id);
                             menu.put("item_1_name", item_1_name.getText().toString());
-                            menu.put("item_1_cost",item_1_name.getText().toString());
+                            menu.put("item_1_cost",item_1_cost.getText().toString());
                             menu.put("item_2_name",item_2_name.getText().toString());
                             menu.put("item_2_cost",item_2_cost.getText().toString());
                             menu.put("item_3_name",item_3_name.getText().toString());

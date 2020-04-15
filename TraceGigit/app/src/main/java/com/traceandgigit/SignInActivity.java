@@ -142,12 +142,17 @@ public class SignInActivity extends Activity {
     }
 
     private boolean checkNoEmptyFields(){
+        boolean status = false;
+        if (userId.getText().toString().endsWith("@gmail.com")){
+            status = true;
+        }
         return userId != null
                 && userId.getText() != null
                 && !userId.getText().toString().isEmpty()
                 && password != null
                 && password.getText() != null
-                && !password.getText().toString().isEmpty();
+                && !password.getText().toString().isEmpty()
+                && status;
     }
 
 

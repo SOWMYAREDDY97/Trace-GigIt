@@ -96,33 +96,43 @@ public class SaloonProfileActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                boolean status = false;
                 String updated_email = saloonEmailID.getText().toString();
                 String updated_saloonname = saloonName.getText().toString();
-                ParseUser user = ParseUser.getCurrentUser();
-                user.setEmail(updated_email);
-                user.put("shop_phone", saloonNumber.getText().toString());
-                user.put("shop_name", updated_saloonname);
-                user.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e==null){
-                            Toast.makeText(SaloonProfileActivity.this, "succefully updated details", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Toast.makeText(SaloonProfileActivity.this, "unable to updated details " + e, Toast.LENGTH_SHORT).show();
-                        }
+                if (updated_email != null && !updated_email.isEmpty() && !saloonNumber.getText().toString().isEmpty()
+                        && saloonNumber.getText().toString().length() == 10
+                        && saloonNumber.getText().toString() != null && updated_saloonname != null
+                        && !updated_saloonname.isEmpty())
+                {
+                    ParseUser user = ParseUser.getCurrentUser();
+                    user.setEmail(updated_email);
+                    user.put("shop_phone", saloonNumber.getText().toString());
+                    user.put("shop_name", updated_saloonname);
+                    user.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e==null){
+                                Toast.makeText(SaloonProfileActivity.this, "succefully updated details", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(SaloonProfileActivity.this, "unable to updated details " + e, Toast.LENGTH_SHORT).show();
+                            }
 
+                        }
+                    });
+
+
+                    if (!isLocationDetected) {
+                        getGPSLocation();
+                    }else{
+                        Intent intent = new Intent(SaloonProfileActivity.this,OwnerActivity.class);
+                        startActivity(intent);
                     }
-                });
-
-
-                if (!isLocationDetected) {
-                    getGPSLocation();
-                }else{
-                    Intent intent = new Intent(SaloonProfileActivity.this,OwnerActivity.class);
-                    startActivity(intent);
                 }
+                else{
+                    Toast.makeText(SaloonProfileActivity.this, "unable to updated details, please check the details you entered", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

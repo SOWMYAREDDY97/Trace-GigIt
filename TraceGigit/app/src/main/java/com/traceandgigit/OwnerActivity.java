@@ -77,9 +77,6 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
         }else if(id == R.id.menuupload){
             Intent ini = new Intent(this, menulist.class);
             startActivity(ini);
-        }else if(id == R.id.notifications){
-            Intent ini = new Intent(this, Owner_NotoficationsActivity.class);
-            startActivity(ini);
         }else if(id == R.id.settings){
             Intent ini = new Intent(this, SettingsScreen.class);
             startActivity(ini);

@@ -61,25 +61,35 @@ public class CustomerProfileActivity extends AppCompatActivity {
                 String user_name = full_name.getText().toString();
                 String update_email = user_email.getText().toString();
 
-                ParseUser user = ParseUser.getCurrentUser();
-                user.setUsername(user_name);
-                user.setEmail(update_email);
-                user.put("Mobile", user_number.getText().toString());
-                user.put("gender", gender.getText().toString());
-                user.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e==null){
-                            Toast.makeText(CustomerProfileActivity.this, "succefully updated details", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(CustomerProfileActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        }
-                        else{
-                            Toast.makeText(CustomerProfileActivity.this, "unable to updated details " + e, Toast.LENGTH_SHORT).show();
-                        }
+                if (!user_name.isEmpty() && !update_email.isEmpty() &&
+                        !user_number.getText().toString().isEmpty() && user_number.getText().toString().length() ==10
+                        && !gender.getText().toString().isEmpty()){
+                    ParseUser user = ParseUser.getCurrentUser();
+                    user.setUsername(user_name);
+                    user.setEmail(update_email);
+                    user.put("Mobile", user_number.getText().toString());
+                    user.put("gender", gender.getText().toString());
+                    user.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e==null){
+                                Toast.makeText(CustomerProfileActivity.this, "succefully updated details", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(CustomerProfileActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(CustomerProfileActivity.this, "unable to updated details " + e, Toast.LENGTH_SHORT).show();
+                            }
 
-                    }
-                });
+                        }
+                    });
+
+                }
+                else{
+                    Toast.makeText(CustomerProfileActivity.this, "unable to updated details please check the details you entered" , Toast.LENGTH_SHORT).show();
+                }
+
+
 
             }
         });

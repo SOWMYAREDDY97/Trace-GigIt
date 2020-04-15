@@ -16,11 +16,6 @@
         android:clickable="true"
         android:title="Menu Upload" />
 
-    <item android:id="@+id/notifications"
-        android:clickable="true"
-        android:title="Notifications" />
-
-
     <item
         android:id="@+id/settings"
         android:clickable="true"

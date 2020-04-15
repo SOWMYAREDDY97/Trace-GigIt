@@ -34,23 +34,32 @@ public class ContactUsActivity extends AppCompatActivity {
         send = findViewById(R.id.sen_mail);
 
 
+
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //OnClick event
-                Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        sendMailUsingSendGrid(from.getText().toString(), to,
-                                "Question from user",
-                                message.getText().toString());
 
-                        Toast.makeText(getApplicationContext(),"Sending mail...", Toast.LENGTH_SHORT).show();
+                if (!from.getText().toString().isEmpty() && !message.getText().toString().isEmpty()){
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            sendMailUsingSendGrid(from.getText().toString(), to,
+                                    "Question from user",
+                                    message.getText().toString());
+
+                            Toast.makeText(getApplicationContext(),"Sending mail...", Toast.LENGTH_SHORT).show();
 
 
-                    }
-                });
+                        }
+                    });
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"unable to sent mail please check the feilds", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 

@@ -239,6 +239,9 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
         if(shopsRecyclerView == null){
             shopsRecyclerView = findViewById(R.id.shopsRecyclerView);
         }
+        if (mSearchFragment == null) {
+            mSearchFragment = new SearchFragment();
+        }
         removeFragment(mSearchFragment);
         shopsRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         AdapterSaloons saloons = new AdapterSaloons(this, objects);

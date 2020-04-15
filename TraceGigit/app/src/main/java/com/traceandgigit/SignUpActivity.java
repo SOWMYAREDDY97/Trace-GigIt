@@ -137,10 +137,10 @@ public class SignUpActivity extends Activity {
 
                     Intent intent = null;
                     if (!isOwner) {
-                        SystemClock.sleep(7000);
+                        SystemClock.sleep(10000);
                         intent = new Intent(SignUpActivity.this, CustomerProfileActivity.class);
                     }else{
-                        SystemClock.sleep(7000);
+                        SystemClock.sleep(10000);
                         intent = new Intent(SignUpActivity.this, SaloonProfileActivity.class);
                     }
                     startActivity(intent);
@@ -161,9 +161,23 @@ public class SignUpActivity extends Activity {
     }
 
     private boolean areFieldsEmpty() {
-        return userEmail.getText().toString().isEmpty()
-                && userFullname.getText().toString().isEmpty()
-                && userPassword.getText().toString().isEmpty();
+        boolean status = false;
+        if (!userEmail.getText().toString().endsWith("@gmail.com")){
+            status = true;
+        }
+        if(userEmail.getText().toString().isEmpty() || userFullname.getText().toString().isEmpty()
+        || userPassword.getText().toString().isEmpty()){
+            status = true;
+        }
+        if (!(userPassword.getText().toString().length() > 4)){
+            status = true;
+        }
+        if (isOwner){
+            if (shopName.getText().toString().isEmpty() || shopAddress.getText().toString().isEmpty() || shopNumber.getText().toString().isEmpty()){
+                status = true;
+            }
+        }
+        return status;
     }
 
     private void makeSignUpCall(){

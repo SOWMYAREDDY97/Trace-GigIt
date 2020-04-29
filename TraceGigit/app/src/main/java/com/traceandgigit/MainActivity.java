@@ -395,7 +395,7 @@ public class MainActivity extends AppCompatActivity implements Serializable ,Nav
         calenderOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,CalenderViewActivity.class);
+                Intent intent = new Intent(MainActivity.this,amount_pay.class);
                 startActivity(intent);
             }
         });

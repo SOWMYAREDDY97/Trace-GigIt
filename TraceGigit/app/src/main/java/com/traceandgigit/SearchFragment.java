@@ -36,7 +36,8 @@ public class SearchFragment extends Fragment {
         search_action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                
+                matched_users= new ArrayList<>();
                 final String search_string = search_text.getText().toString();
                 ParseQuery<ParseUser> saloonQuery = ParseUser.getQuery();
                 try{

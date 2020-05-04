@@ -11,7 +11,7 @@
 - Sowmya Reddy Kumbham
 - Nandini Yadav Janga
 ### Project Client:
-- Dr. Dr. Zhengrui Qin - Assistant Professor, School Of Computer Science and Information Systems
+- Dr. Zhengrui Qin - Assistant Professor, School Of Computer Science and Information Systems
 ### Project Description:
 TraceandGigit is a android application in which customers can book appointments to the business owners. Business owners such as salon owners can accept/reject appointments based on available employees and their time slots.
 ### Test Credentials:
